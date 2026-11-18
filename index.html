@@ -1,0 +1,1214 @@
+<title>SupeRR Pressure Rankings</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap">
+<style>
+/* Layout: stat tiles row → tab nav → main content area with tables and charts */
+:root {
+  --bg: #0B0F1A;
+  --bg-card: #131829;
+  --bg-card-hover: #1A2038;
+  --bg-surface: #0E1222;
+  --fg: #E8ECF4;
+  --fg-secondary: #8B93A7;
+  --fg-muted: #565E73;
+  --accent: #3B82F6;
+  --accent-glow: rgba(59, 130, 246, 0.15);
+  --green: #22C55E;
+  --green-dim: rgba(34, 197, 94, 0.12);
+  --amber: #F59E0B;
+  --amber-dim: rgba(245, 158, 11, 0.12);
+  --red: #EF4444;
+  --red-dim: rgba(239, 68, 68, 0.12);
+  --cyan: #06B6D4;
+  --purple: #A855F7;
+  --border: #1E2640;
+  --radius: 10px;
+  --radius-sm: 6px;
+  font-variant-numeric: tabular-nums;
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --bg: #F5F7FA;
+    --bg-card: #FFFFFF;
+    --bg-card-hover: #F0F2F7;
+    --bg-surface: #EEF1F6;
+    --fg: #111827;
+    --fg-secondary: #4B5563;
+    --fg-muted: #9CA3AF;
+    --accent: #2563EB;
+    --accent-glow: rgba(37, 99, 235, 0.08);
+    --green: #16A34A;
+    --green-dim: rgba(22, 163, 74, 0.08);
+    --amber: #D97706;
+    --amber-dim: rgba(217, 119, 6, 0.08);
+    --red: #DC2626;
+    --red-dim: rgba(220, 38, 38, 0.08);
+    --cyan: #0891B2;
+    --purple: #9333EA;
+    --border: #E5E7EB;
+    --radius: 10px;
+    --radius-sm: 6px;
+    color-scheme: light;
+  }
+}
+:root[data-theme="light"] {
+  --bg: #F5F7FA;
+  --bg-card: #FFFFFF;
+  --bg-card-hover: #F0F2F7;
+  --bg-surface: #EEF1F6;
+  --fg: #111827;
+  --fg-secondary: #4B5563;
+  --fg-muted: #9CA3AF;
+  --accent: #2563EB;
+  --accent-glow: rgba(37, 99, 235, 0.08);
+  --green: #16A34A;
+  --green-dim: rgba(22, 163, 74, 0.08);
+  --amber: #D97706;
+  --amber-dim: rgba(217, 119, 6, 0.08);
+  --red: #DC2626;
+  --red-dim: rgba(220, 38, 38, 0.08);
+  --cyan: #0891B2;
+  --purple: #9333EA;
+  --border: #E5E7EB;
+  color-scheme: light;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  line-height: 1.5;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0;
+  min-height: 100vh;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0 0 auto;
+  height: env(safe-area-inset-top, 0px);
+  z-index: 10;
+  background: var(--bg);
+}
+
+.container { max-width: 1200px; margin: 0 auto; padding: 24px 0 48px; }
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+.logo {
+  width: 48px; height: 48px;
+  background: linear-gradient(135deg, var(--accent), var(--purple));
+  border-radius: var(--radius);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700; font-size: 20px; color: #fff;
+  flex-shrink: 0;
+}
+.header-text h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(20px, 4vw, 28px);
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+}
+.header-text p {
+  color: var(--fg-secondary);
+  font-size: 13px;
+  margin-top: 2px;
+}
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.badge-live { background: var(--green-dim); color: var(--green); }
+.badge-live::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
+
+/* Stat tiles */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.stat-tile {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  position: relative;
+  overflow: hidden;
+}
+.stat-tile::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+}
+.stat-tile:nth-child(1)::after { background: var(--accent); }
+.stat-tile:nth-child(2)::after { background: var(--green); }
+.stat-tile:nth-child(3)::after { background: var(--amber); }
+.stat-tile:nth-child(4)::after { background: var(--cyan); }
+.stat-tile:nth-child(5)::after { background: var(--purple); }
+.stat-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--fg-muted);
+  margin-bottom: 6px;
+}
+.stat-value {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+.stat-sub {
+  font-size: 12px;
+  color: var(--fg-secondary);
+  margin-top: 4px;
+}
+
+/* Tab nav */
+.tab-nav {
+  display: flex;
+  gap: 4px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 24px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.tab-btn {
+  padding: 10px 18px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--fg-muted);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.15s, border-color 0.15s;
+}
+.tab-btn:hover { color: var(--fg-secondary); }
+.tab-btn.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* Section headers */
+.section-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.section-title .dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* Player cards (top 10) */
+.player-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 12px;
+  margin-bottom: 32px;
+}
+.player-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 14px;
+  align-items: center;
+  transition: border-color 0.15s, background 0.15s;
+}
+.player-card:hover {
+  border-color: var(--accent);
+  background: var(--bg-card-hover);
+}
+.player-rank {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700; font-size: 14px;
+  flex-shrink: 0;
+}
+.rank-gold { background: linear-gradient(135deg, #F59E0B, #D97706); color: #000; }
+.rank-silver { background: linear-gradient(135deg, #94A3B8, #64748B); color: #fff; }
+.rank-bronze { background: linear-gradient(135deg, #CD7F32, #A0522D); color: #fff; }
+.rank-default { background: var(--bg-surface); border: 1px solid var(--border); color: var(--fg-secondary); }
+.player-info { min-width: 0; }
+.player-name {
+  font-weight: 600;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.player-meta {
+  font-size: 12px;
+  color: var(--fg-secondary);
+  margin-top: 2px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.player-rating-box { text-align: right; flex-shrink: 0; }
+.player-rating-num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+}
+.player-confidence {
+  font-size: 11px;
+  color: var(--fg-muted);
+  margin-top: 3px;
+}
+.conf-bar {
+  display: inline-block;
+  width: 40px; height: 4px;
+  background: var(--bg-surface);
+  border-radius: 2px;
+  overflow: hidden;
+  vertical-align: middle;
+  margin-right: 4px;
+}
+.conf-fill {
+  height: 100%;
+  border-radius: 2px;
+  background: var(--green);
+}
+
+/* Full table */
+.table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 24px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+thead th {
+  position: sticky;
+  top: 0;
+  background: var(--bg-card);
+  padding: 10px 12px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--fg-muted);
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+thead th.num { text-align: right; }
+tbody td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+tbody td.num { text-align: right; font-variant-numeric: tabular-nums; }
+tbody tr:last-child td { border-bottom: none; }
+tbody tr:hover { background: var(--bg-card-hover); }
+.top-3 { font-weight: 600; }
+
+/* Charts area */
+.chart-container {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.chart-container h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+canvas { width: 100% !important; }
+
+/* Methodology section */
+.method-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.method-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+.method-card h4 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.method-card p {
+  font-size: 13px;
+  color: var(--fg-secondary);
+  line-height: 1.6;
+}
+.method-num {
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  background: var(--accent-glow);
+  color: var(--accent);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 12px; font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* Key finding callout */
+.callout {
+  background: var(--accent-glow);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin-bottom: 24px;
+}
+.callout h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+.callout p {
+  font-size: 14px;
+  color: var(--fg-secondary);
+  line-height: 1.7;
+}
+.callout strong { color: var(--fg); }
+
+/* Reliability bars */
+.rel-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+}
+.rel-row:last-child { border-bottom: none; }
+.rel-label { width: 140px; flex-shrink: 0; color: var(--fg-secondary); font-size: 12px; }
+.rel-bars { flex: 1; display: flex; gap: 8px; align-items: center; }
+.rel-bar-wrap { flex: 1; }
+.rel-bar-label { font-size: 10px; color: var(--fg-muted); margin-bottom: 2px; }
+.rel-bar-track {
+  height: 8px;
+  background: var(--bg-surface);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.rel-bar-fill { height: 100%; border-radius: 4px; transition: width 0.6s ease; }
+.rel-bar-val { font-size: 12px; font-weight: 600; width: 36px; text-align: right; }
+
+/* Toggle */
+.view-toggle {
+  display: inline-flex;
+  background: var(--bg-surface);
+  border-radius: var(--radius-sm);
+  padding: 2px;
+  margin-bottom: 16px;
+}
+.view-toggle button {
+  padding: 6px 14px;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--fg-muted);
+  background: none;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.view-toggle button.active {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 24px 0;
+  border-top: 1px solid var(--border);
+  margin-top: 32px;
+  color: var(--fg-muted);
+  font-size: 12px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .player-grid { grid-template-columns: 1fr; }
+  .stats-row { grid-template-columns: repeat(2, 1fr); }
+  .method-grid { grid-template-columns: 1fr; }
+  .header { gap: 12px; }
+  .container { padding: 16px 0 32px; }
+}
+</style>
+
+<div class="container">
+  <!-- Header -->
+  <div class="header">
+    <div class="logo">SR</div>
+    <div class="header-text">
+      <h1>SupeRR Pressure Rankings</h1>
+      <p>Who delivers when it matters? T20 performance under pressure, 2022-2026</p>
+    </div>
+    <span class="badge badge-live">Season 2</span>
+  </div>
+
+  <!-- Stat tiles -->
+  <div class="stats-row">
+    <div class="stat-tile">
+      <div class="stat-label">Matches Analysed</div>
+      <div class="stat-value">842</div>
+      <div class="stat-sub">IPL 362 / T20I 450 / Other 30</div>
+    </div>
+    <div class="stat-tile">
+      <div class="stat-label">Deliveries</div>
+      <div class="stat-value">199,029</div>
+      <div class="stat-sub">Ball-by-ball data</div>
+    </div>
+    <div class="stat-tile">
+      <div class="stat-label">Eligible Batters</div>
+      <div class="stat-value">106</div>
+      <div class="stat-sub">&ge;150 HP balls, &ge;20 matches</div>
+    </div>
+    <div class="stat-tile">
+      <div class="stat-label">Eligible Bowlers</div>
+      <div class="stat-value">101</div>
+      <div class="stat-sub">&ge;150 HP balls, &ge;20 matches</div>
+    </div>
+    <div class="stat-tile">
+      <div class="stat-label">Chase WP Model</div>
+      <div class="stat-value">0.896</div>
+      <div class="stat-sub">AUC (out-of-fold)</div>
+    </div>
+  </div>
+
+  <!-- Tab navigation -->
+  <nav class="tab-nav" role="tablist">
+    <button class="tab-btn active" data-tab="batters" role="tab">Batters</button>
+    <button class="tab-btn" data-tab="bowlers" role="tab">Bowlers</button>
+    <button class="tab-btn" data-tab="charts" role="tab">Charts</button>
+    <button class="tab-btn" data-tab="methodology" role="tab">Methodology</button>
+    <button class="tab-btn" data-tab="reliability" role="tab">Reliability</button>
+  </nav>
+
+  <!-- BATTERS TAB -->
+  <div class="tab-panel active" id="tab-batters">
+    <div class="section-title"><span class="dot" style="background:var(--accent)"></span> Top 10 Batters Under Pressure</div>
+
+    <div class="view-toggle" data-target="bat">
+      <button class="active" data-view="cards">Cards</button>
+      <button data-view="table">Full Table</button>
+    </div>
+
+    <div id="bat-cards" class="player-grid"></div>
+
+    <div id="bat-table" style="display:none">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th><th>Player</th><th class="num">Rating</th><th class="num">P(Top 10)</th>
+              <th class="num">HP Balls</th><th class="num">Matches</th>
+              <th class="num">SR (Pressure)</th><th class="num">SR (Normal)</th>
+              <th class="num">90% CI</th>
+            </tr>
+          </thead>
+          <tbody id="bat-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div style="margin-top:8px">
+      <div class="section-title" style="font-size:15px"><span class="dot" style="background:var(--fg-muted)"></span> Extended Rankings (Top 30)</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th><th>Player</th><th class="num">Rating</th><th class="num">P(Top 10)</th>
+              <th class="num">HP Balls</th><th class="num">Matches</th>
+              <th class="num">SR (Pressure)</th><th class="num">SR (Normal)</th>
+            </tr>
+          </thead>
+          <tbody id="bat30-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOWLERS TAB -->
+  <div class="tab-panel" id="tab-bowlers">
+    <div class="section-title"><span class="dot" style="background:var(--green)"></span> Top 10 Bowlers Under Pressure</div>
+
+    <div class="view-toggle" data-target="bowl">
+      <button class="active" data-view="cards">Cards</button>
+      <button data-view="table">Full Table</button>
+    </div>
+
+    <div id="bowl-cards" class="player-grid"></div>
+
+    <div id="bowl-table" style="display:none">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th><th>Player</th><th class="num">Rating</th><th class="num">P(Top 10)</th>
+              <th class="num">HP Balls</th><th class="num">Matches</th>
+              <th class="num">Econ (Pressure)</th><th class="num">Econ (Normal)</th>
+              <th class="num">90% CI</th>
+            </tr>
+          </thead>
+          <tbody id="bowl-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div style="margin-top:8px">
+      <div class="section-title" style="font-size:15px"><span class="dot" style="background:var(--fg-muted)"></span> Extended Rankings (Top 30)</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th><th>Player</th><th class="num">Rating</th><th class="num">P(Top 10)</th>
+              <th class="num">HP Balls</th><th class="num">Matches</th>
+              <th class="num">Econ (Pressure)</th><th class="num">Econ (Normal)</th>
+            </tr>
+          </thead>
+          <tbody id="bowl30-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHARTS TAB -->
+  <div class="tab-panel" id="tab-charts">
+    <div class="section-title"><span class="dot" style="background:var(--cyan)"></span> Visual Analysis</div>
+
+    <div class="chart-container">
+      <h3>Batter Ratings with 90% Bootstrap Confidence Intervals</h3>
+      <canvas id="chart-bat-ci" height="280"></canvas>
+    </div>
+
+    <div class="chart-container">
+      <h3>Bowler Ratings with 90% Bootstrap Confidence Intervals</h3>
+      <canvas id="chart-bowl-ci" height="280"></canvas>
+    </div>
+
+    <div class="chart-container">
+      <h3>High-Pressure Ball Percentage by Over</h3>
+      <canvas id="chart-pi-over" height="240"></canvas>
+    </div>
+
+    <div class="chart-container">
+      <h3>Batters: Strike Rate Under Pressure vs Normal</h3>
+      <canvas id="chart-bat-scatter" height="300"></canvas>
+    </div>
+
+    <div class="chart-container">
+      <h3>Bowlers: Economy Under Pressure vs Normal</h3>
+      <canvas id="chart-bowl-scatter" height="300"></canvas>
+    </div>
+  </div>
+
+  <!-- METHODOLOGY TAB -->
+  <div class="tab-panel" id="tab-methodology">
+    <div class="section-title"><span class="dot" style="background:var(--purple)"></span> How It Works</div>
+
+    <div class="callout">
+      <h3>The Key Finding</h3>
+      <p>"Clutch" &mdash; doing better than your own normal level under pressure &mdash; is <strong>not a repeatable skill</strong>. The split-half correlation is -0.04 (batting) and 0.03 (bowling). But <strong>quality that holds up under pressure IS real</strong>: the final rating has reliability of 0.32 (batting) and 0.20 (bowling). Some players genuinely maintain their standards when it matters. Others don't.</p>
+    </div>
+
+    <div class="method-grid">
+      <div class="method-card">
+        <h4><span class="method-num">1</span> Win Probability</h4>
+        <p>Monotone HistGradientBoosting trained out-of-fold (5-fold by match). Chase model AUC 0.896. First-innings uses a projected-total model with normal error. Every ball gets a win probability before and after.</p>
+      </div>
+      <div class="method-card">
+        <h4><span class="method-num">2</span> Pressure Index</h4>
+        <p>PI = Leverage Index &times; Momentum &times; Stakes. LI measures how much the win probability could swing. Momentum amplifies for recent wickets or dot balls. Knockout matches get a 1.2&times; boost. Top 25% are "high pressure" (PI &ge; 1.395).</p>
+      </div>
+      <div class="method-card">
+        <h4><span class="method-num">3</span> Expected Outcomes</h4>
+        <p>Machine learning models predict what an average player would do on each delivery given the exact situation. Runs Above Expected (RAE) = what you did minus what average would have done, adjusted for wicket value.</p>
+      </div>
+      <div class="method-card">
+        <h4><span class="method-num">4</span> Fair Comparisons</h4>
+        <p>Opposition quality weighted (full members 1.0, associates 0.60). Empirical-Bayes shrinkage prevents hot streaks from beating sustained excellence. Need &ge;150 high-pressure balls and &ge;20 matches to qualify.</p>
+      </div>
+      <div class="method-card">
+        <h4><span class="method-num">5</span> Composite Rating</h4>
+        <p>50% pressure-weighted RAE + 25% context-neutral WPA + 15% consistency + 10% clutch delta. Weights reflect each component's reliability. All z-scored among eligible players.</p>
+      </div>
+      <div class="method-card">
+        <h4><span class="method-num">6</span> Robustness</h4>
+        <p>300 match-level bootstrap resamples give confidence intervals. Split-half reliability confirms which signals are real. 15 sensitivity scenarios test alternative assumptions.</p>
+      </div>
+    </div>
+
+    <div class="chart-container">
+      <h3>Rating Composite Weights</h3>
+      <canvas id="chart-weights" height="200"></canvas>
+    </div>
+  </div>
+
+  <!-- RELIABILITY TAB -->
+  <div class="tab-panel" id="tab-reliability">
+    <div class="section-title"><span class="dot" style="background:var(--amber)"></span> Split-Half Reliability</div>
+    <p style="color:var(--fg-secondary); font-size:13px; margin-bottom:20px;">
+      Each player's career is split into odd and even matches. These bars show how well each half predicts the other. Higher = more signal, lower = more noise.
+    </p>
+    <div id="rel-bars" style="background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius); padding:16px 20px;"></div>
+  </div>
+
+  <div class="footer">
+    SupeRR Selector Season 2 &middot; Round 1 &middot; Data: 842 T20 matches (IPL + T20I), 2022&ndash;2026 &middot; Fully reproducible
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+// ═══════ DATA ═══════
+const DATA = {
+  bat: [
+    {rank:1,name:"Vaibhav Sooryavanshi",rating:2.96,p_top10:91,hp_balls:244,matches:35,sr_pressure:232.0,sr_normal:218.3},
+    {rank:2,name:"Suryakumar Yadav",rating:2.30,p_top10:93,hp_balls:650,matches:137,sr_pressure:161.5,sr_normal:168.0},
+    {rank:3,name:"Abhishek Sharma",rating:1.96,p_top10:74,hp_balls:677,matches:130,sr_pressure:179.3,sr_normal:190.0},
+    {rank:4,name:"Tim David",rating:1.84,p_top10:72,hp_balls:318,matches:98,sr_pressure:173.0,sr_normal:179.3},
+    {rank:5,name:"Heinrich Klaasen",rating:1.82,p_top10:72,hp_balls:247,matches:72,sr_pressure:180.2,sr_normal:163.9},
+    {rank:6,name:"Rajat Patidar",rating:1.74,p_top10:70,hp_balls:232,matches:48,sr_pressure:168.5,sr_normal:167.6},
+    {rank:7,name:"Travis Head",rating:1.40,p_top10:49,hp_balls:443,matches:65,sr_pressure:175.4,sr_normal:174.7},
+    {rank:8,name:"Cameron Green",rating:1.21,p_top10:33,hp_balls:232,matches:62,sr_pressure:173.3,sr_normal:147.0},
+    {rank:9,name:"Mohammad Rizwan",rating:1.12,p_top10:21,hp_balls:331,matches:37,sr_pressure:128.7,sr_normal:126.8},
+    {rank:10,name:"Phil Salt",rating:1.09,p_top10:32,hp_balls:529,matches:83,sr_pressure:165.2,sr_normal:171.6}
+  ],
+  bowl: [
+    {rank:1,name:"Kuldeep Yadav",rating:2.35,p_top10:89,hp_balls:431,matches:88,econ_pressure:7.56,econ_normal:8.09},
+    {rank:2,name:"Josh Hazlewood",rating:2.05,p_top10:75,hp_balls:477,matches:63,econ_pressure:8.05,econ_normal:8.31},
+    {rank:3,name:"Jasprit Bumrah",rating:1.89,p_top10:71,hp_balls:521,matches:75,econ_pressure:7.35,econ_normal:7.10},
+    {rank:4,name:"Varun Chakravarthy",rating:1.83,p_top10:73,hp_balls:454,matches:94,econ_pressure:7.15,econ_normal:8.20},
+    {rank:5,name:"Rashid Khan",rating:1.79,p_top10:71,hp_balls:528,matches:118,econ_pressure:7.44,econ_normal:7.57},
+    {rank:6,name:"Krunal Pandya",rating:1.60,p_top10:58,hp_balls:362,matches:71,econ_pressure:7.56,econ_normal:8.60},
+    {rank:7,name:"Matheesha Pathirana",rating:1.41,p_top10:46,hp_balls:250,matches:48,econ_pressure:8.64,econ_normal:9.26},
+    {rank:8,name:"Wanindu Hasaranga",rating:1.41,p_top10:44,hp_balls:421,matches:65,econ_pressure:8.00,econ_normal:7.86},
+    {rank:9,name:"Blessing Muzarabani",rating:1.26,p_top10:41,hp_balls:328,matches:42,econ_pressure:7.99,econ_normal:8.37},
+    {rank:10,name:"Sunil Narine",rating:1.23,p_top10:36,hp_balls:396,matches:88,econ_pressure:7.20,econ_normal:7.07}
+  ],
+  ci_bat: [{lo:1.19,hi:4.32},{lo:1.34,hi:3.13},{lo:0.63,hi:3.22},{lo:0.48,hi:3.03},{lo:0.65,hi:2.76},{lo:0.35,hi:3.01},{lo:-0.10,hi:2.89},{lo:0.09,hi:2.22},{lo:0.52,hi:1.70},{lo:-0.58,hi:2.50}],
+  ci_bowl: [{lo:1.11,hi:3.46},{lo:0.69,hi:3.37},{lo:0.71,hi:3.09},{lo:0.78,hi:2.89},{lo:0.74,hi:2.85},{lo:0.33,hi:2.73},{lo:0.44,hi:2.37},{lo:0.16,hi:2.57},{lo:0.21,hi:2.42},{lo:0.37,hi:2.04}],
+  pi_by_over: {1:37.7,2:38.2,3:37.9,4:34.4,5:33.3,6:33.0,7:22.6,8:20.5,9:20.5,10:20.3,11:18.4,12:18.0,13:17.4,14:17.4,15:17.4,16:23.4,17:21.3,18:19.9,19:20.5,20:23.6},
+  rel: [
+    {component:"Runs vs Expected",batting:0.47,bowling:0.13},
+    {component:"Wicket Component",batting:0.21,bowling:0.12},
+    {component:"cWPA",batting:0.21,bowling:0.06},
+    {component:"Consistency",batting:0.08,bowling:0.09},
+    {component:"Clutch Delta",batting:-0.04,bowling:0.03},
+    {component:"Final Rating",batting:0.32,bowling:0.20}
+  ],
+  bat30: [
+    {rank:1,name:"Vaibhav Sooryavanshi",rating:2.96,p_top10:91,hp_balls:244,matches:35,sr_pressure:232.0,sr_normal:218.3},
+    {rank:2,name:"Suryakumar Yadav",rating:2.30,p_top10:93,hp_balls:650,matches:137,sr_pressure:161.5,sr_normal:168.0},
+    {rank:3,name:"Abhishek Sharma",rating:1.96,p_top10:74,hp_balls:677,matches:130,sr_pressure:179.3,sr_normal:190.0},
+    {rank:4,name:"Tim David",rating:1.84,p_top10:72,hp_balls:318,matches:98,sr_pressure:173.0,sr_normal:179.3},
+    {rank:5,name:"Heinrich Klaasen",rating:1.82,p_top10:72,hp_balls:247,matches:72,sr_pressure:180.2,sr_normal:163.9},
+    {rank:6,name:"Rajat Patidar",rating:1.74,p_top10:70,hp_balls:232,matches:48,sr_pressure:168.5,sr_normal:167.6},
+    {rank:7,name:"Travis Head",rating:1.40,p_top10:49,hp_balls:443,matches:65,sr_pressure:175.4,sr_normal:174.7},
+    {rank:8,name:"Cameron Green",rating:1.21,p_top10:33,hp_balls:232,matches:62,sr_pressure:173.3,sr_normal:147.0},
+    {rank:9,name:"Mohammad Rizwan",rating:1.12,p_top10:21,hp_balls:331,matches:37,sr_pressure:128.7,sr_normal:126.8},
+    {rank:10,name:"Phil Salt",rating:1.09,p_top10:32,hp_balls:529,matches:83,sr_pressure:165.2,sr_normal:171.6},
+    {rank:11,name:"Nicholas Pooran",rating:1.07,p_top10:30,hp_balls:379,matches:94,sr_pressure:160.4,sr_normal:154.3},
+    {rank:12,name:"Reeza Hendricks",rating:1.03,p_top10:22,hp_balls:329,matches:44,sr_pressure:138.0,sr_normal:128.6},
+    {rank:13,name:"Sai Sudharsan",rating:0.97,p_top10:17,hp_balls:296,matches:63,sr_pressure:149.0,sr_normal:139.5},
+    {rank:14,name:"David Warner",rating:0.90,p_top10:14,hp_balls:240,matches:35,sr_pressure:158.3,sr_normal:150.8},
+    {rank:15,name:"KL Rahul",rating:0.86,p_top10:13,hp_balls:371,matches:65,sr_pressure:138.0,sr_normal:135.6}
+  ],
+  bowl30: [
+    {rank:1,name:"Kuldeep Yadav",rating:2.35,p_top10:89,hp_balls:431,matches:88,econ_pressure:7.56,econ_normal:8.09},
+    {rank:2,name:"Josh Hazlewood",rating:2.05,p_top10:75,hp_balls:477,matches:63,econ_pressure:8.05,econ_normal:8.31},
+    {rank:3,name:"Jasprit Bumrah",rating:1.89,p_top10:71,hp_balls:521,matches:75,econ_pressure:7.35,econ_normal:7.10},
+    {rank:4,name:"Varun Chakravarthy",rating:1.83,p_top10:73,hp_balls:454,matches:94,econ_pressure:7.15,econ_normal:8.20},
+    {rank:5,name:"Rashid Khan",rating:1.79,p_top10:71,hp_balls:528,matches:118,econ_pressure:7.44,econ_normal:7.57},
+    {rank:6,name:"Krunal Pandya",rating:1.60,p_top10:58,hp_balls:362,matches:71,econ_pressure:7.56,econ_normal:8.60},
+    {rank:7,name:"Matheesha Pathirana",rating:1.41,p_top10:46,hp_balls:250,matches:48,econ_pressure:8.64,econ_normal:9.26},
+    {rank:8,name:"Wanindu Hasaranga",rating:1.41,p_top10:44,hp_balls:421,matches:65,econ_pressure:8.00,econ_normal:7.86},
+    {rank:9,name:"Blessing Muzarabani",rating:1.26,p_top10:41,hp_balls:328,matches:42,econ_pressure:7.99,econ_normal:8.37},
+    {rank:10,name:"Sunil Narine",rating:1.23,p_top10:36,hp_balls:396,matches:88,econ_pressure:7.20,econ_normal:7.07},
+    {rank:11,name:"Axar Patel",rating:1.18,p_top10:30,hp_balls:380,matches:84,econ_pressure:7.42,econ_normal:8.15},
+    {rank:12,name:"Jacob Duffy",rating:1.10,p_top10:22,hp_balls:210,matches:28,econ_pressure:8.00,econ_normal:9.14},
+    {rank:13,name:"Trent Boult",rating:1.02,p_top10:19,hp_balls:390,matches:52,econ_pressure:8.49,econ_normal:8.77},
+    {rank:14,name:"Taskin Ahmed",rating:0.95,p_top10:15,hp_balls:310,matches:40,econ_pressure:8.16,econ_normal:8.80},
+    {rank:15,name:"Mohammad Nawaz",rating:0.88,p_top10:12,hp_balls:285,matches:38,econ_pressure:7.72,econ_normal:8.10}
+  ]
+};
+
+// ═══════ THEME DETECTION ═══════
+function getTheme() {
+  const dt = document.documentElement.getAttribute('data-theme');
+  if (dt === 'dark') return 'dark';
+  if (dt === 'light') return 'light';
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
+function getCSSVar(name) {
+  return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+}
+
+// ═══════ TABS ═══════
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+  });
+});
+
+// ═══════ VIEW TOGGLES ═══════
+document.querySelectorAll('.view-toggle').forEach(group => {
+  const target = group.dataset.target;
+  group.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      group.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const v = btn.dataset.view;
+      document.getElementById(target + '-cards').style.display = v === 'cards' ? '' : 'none';
+      document.getElementById(target + '-table').style.display = v === 'table' ? '' : 'none';
+    });
+  });
+});
+
+// ═══════ RENDER PLAYER CARDS ═══════
+function rankClass(r) {
+  if (r === 1) return 'rank-gold';
+  if (r === 2) return 'rank-silver';
+  if (r === 3) return 'rank-bronze';
+  return 'rank-default';
+}
+
+function renderBatCards() {
+  const el = document.getElementById('bat-cards');
+  el.innerHTML = DATA.bat.map(p => `
+    <div class="player-card">
+      <div class="player-rank ${rankClass(p.rank)}">${p.rank}</div>
+      <div class="player-info">
+        <div class="player-name">${p.name}</div>
+        <div class="player-meta">
+          <span>${p.hp_balls} HP balls</span>
+          <span>${p.matches} matches</span>
+          <span>SR: ${p.sr_pressure} / ${p.sr_normal}</span>
+        </div>
+      </div>
+      <div class="player-rating-box">
+        <div class="player-rating-num">${p.rating.toFixed(2)}</div>
+        <div class="player-confidence">
+          <span class="conf-bar"><span class="conf-fill" style="width:${p.p_top10}%"></span></span>${p.p_top10}%
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderBowlCards() {
+  const el = document.getElementById('bowl-cards');
+  el.innerHTML = DATA.bowl.map(p => `
+    <div class="player-card">
+      <div class="player-rank ${rankClass(p.rank)}">${p.rank}</div>
+      <div class="player-info">
+        <div class="player-name">${p.name}</div>
+        <div class="player-meta">
+          <span>${p.hp_balls} HP balls</span>
+          <span>${p.matches} matches</span>
+          <span>Econ: ${p.econ_pressure} / ${p.econ_normal}</span>
+        </div>
+      </div>
+      <div class="player-rating-box">
+        <div class="player-rating-num">${p.rating.toFixed(2)}</div>
+        <div class="player-confidence">
+          <span class="conf-bar"><span class="conf-fill" style="width:${p.p_top10}%"></span></span>${p.p_top10}%
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ═══════ RENDER TABLES ═══════
+function renderBatTable() {
+  document.getElementById('bat-tbody').innerHTML = DATA.bat.map((p,i) => `
+    <tr class="${i<3?'top-3':''}">
+      <td>${p.rank}</td><td>${p.name}</td>
+      <td class="num">${p.rating.toFixed(2)}</td><td class="num">${p.p_top10}%</td>
+      <td class="num">${p.hp_balls}</td><td class="num">${p.matches}</td>
+      <td class="num">${p.sr_pressure}</td><td class="num">${p.sr_normal}</td>
+      <td class="num">${DATA.ci_bat[i].lo.toFixed(2)} &ndash; ${DATA.ci_bat[i].hi.toFixed(2)}</td>
+    </tr>`).join('');
+}
+function renderBowlTable() {
+  document.getElementById('bowl-tbody').innerHTML = DATA.bowl.map((p,i) => `
+    <tr class="${i<3?'top-3':''}">
+      <td>${p.rank}</td><td>${p.name}</td>
+      <td class="num">${p.rating.toFixed(2)}</td><td class="num">${p.p_top10}%</td>
+      <td class="num">${p.hp_balls}</td><td class="num">${p.matches}</td>
+      <td class="num">${p.econ_pressure}</td><td class="num">${p.econ_normal}</td>
+      <td class="num">${DATA.ci_bowl[i].lo.toFixed(2)} &ndash; ${DATA.ci_bowl[i].hi.toFixed(2)}</td>
+    </tr>`).join('');
+}
+
+function renderBat30() {
+  document.getElementById('bat30-tbody').innerHTML = DATA.bat30.map((p,i) => `
+    <tr class="${i<3?'top-3':''}">
+      <td>${p.rank}</td><td>${p.name}</td>
+      <td class="num">${p.rating.toFixed(2)}</td><td class="num">${p.p_top10}%</td>
+      <td class="num">${p.hp_balls}</td><td class="num">${p.matches}</td>
+      <td class="num">${p.sr_pressure}</td><td class="num">${p.sr_normal}</td>
+    </tr>`).join('');
+}
+function renderBowl30() {
+  document.getElementById('bowl30-tbody').innerHTML = DATA.bowl30.map((p,i) => `
+    <tr class="${i<3?'top-3':''}">
+      <td>${p.rank}</td><td>${p.name}</td>
+      <td class="num">${p.rating.toFixed(2)}</td><td class="num">${p.p_top10}%</td>
+      <td class="num">${p.hp_balls}</td><td class="num">${p.matches}</td>
+      <td class="num">${p.econ_pressure}</td><td class="num">${p.econ_normal}</td>
+    </tr>`).join('');
+}
+
+// ═══════ RELIABILITY BARS ═══════
+function renderRelBars() {
+  const el = document.getElementById('rel-bars');
+  el.innerHTML = DATA.rel.map(r => {
+    const batW = Math.max(0, r.batting) * 200;
+    const bowlW = Math.max(0, r.bowling) * 200;
+    const batColor = r.component === 'Final Rating' ? getCSSVar('--accent') :
+                     r.batting < 0.05 ? getCSSVar('--red') :
+                     r.batting < 0.15 ? getCSSVar('--amber') : getCSSVar('--green');
+    const bowlColor = r.component === 'Final Rating' ? getCSSVar('--accent') :
+                      r.bowling < 0.05 ? getCSSVar('--red') :
+                      r.bowling < 0.15 ? getCSSVar('--amber') : getCSSVar('--green');
+    const isFinal = r.component === 'Final Rating';
+    return `
+      <div class="rel-row" style="${isFinal ? 'padding-top:12px;margin-top:4px;border-top:2px solid var(--accent);font-weight:600' : ''}">
+        <div class="rel-label">${r.component}</div>
+        <div class="rel-bars">
+          <div class="rel-bar-wrap">
+            <div class="rel-bar-label">Batting</div>
+            <div class="rel-bar-track"><div class="rel-bar-fill" style="width:${batW}%;background:${batColor}"></div></div>
+          </div>
+          <div class="rel-bar-val" style="color:${batColor}">${r.batting.toFixed(2)}</div>
+          <div class="rel-bar-wrap">
+            <div class="rel-bar-label">Bowling</div>
+            <div class="rel-bar-track"><div class="rel-bar-fill" style="width:${bowlW}%;background:${bowlColor}"></div></div>
+          </div>
+          <div class="rel-bar-val" style="color:${bowlColor}">${r.bowling.toFixed(2)}</div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+// ═══════ CHARTS ═══════
+const chartDefaults = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: { legend: { display: false } }
+};
+
+function makeCharts() {
+  const theme = getTheme();
+  const fg = theme === 'dark' ? '#8B93A7' : '#6B7280';
+  const grid = theme === 'dark' ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)';
+  const accent = theme === 'dark' ? '#3B82F6' : '#2563EB';
+  const green = theme === 'dark' ? '#22C55E' : '#16A34A';
+  const cyan = theme === 'dark' ? '#06B6D4' : '#0891B2';
+  const purple = theme === 'dark' ? '#A855F7' : '#9333EA';
+  const amber = theme === 'dark' ? '#F59E0B' : '#D97706';
+
+  Chart.defaults.color = fg;
+  Chart.defaults.borderColor = grid;
+
+  // Batter CI chart
+  new Chart(document.getElementById('chart-bat-ci'), {
+    type: 'bar',
+    data: {
+      labels: DATA.bat.map(p => p.name.split(' ').pop()),
+      datasets: [
+        {
+          label: 'CI Low',
+          data: DATA.ci_bat.map(c => c.lo),
+          backgroundColor: 'transparent',
+          borderWidth: 0
+        },
+        {
+          label: 'Rating',
+          data: DATA.bat.map((p,i) => p.rating - DATA.ci_bat[i].lo),
+          backgroundColor: accent + '99',
+          borderColor: accent,
+          borderWidth: 1,
+          borderRadius: { topLeft: 4, topRight: 4 },
+          barPercentage: 0.6
+        },
+        {
+          label: 'CI Range',
+          data: DATA.bat.map((p,i) => DATA.ci_bat[i].hi - p.rating),
+          backgroundColor: accent + '33',
+          borderColor: accent + '66',
+          borderWidth: 1,
+          borderRadius: { topLeft: 4, topRight: 4 },
+          barPercentage: 0.6
+        }
+      ]
+    },
+    options: {
+      ...chartDefaults,
+      scales: {
+        x: { stacked: true, grid: { display: false } },
+        y: { stacked: true, title: { display: true, text: 'Rating', color: fg }, grid: { color: grid } }
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: (ctx) => {
+              const i = ctx.dataIndex;
+              const p = DATA.bat[i];
+              return `${p.name}: ${p.rating.toFixed(2)} [${DATA.ci_bat[i].lo.toFixed(2)}, ${DATA.ci_bat[i].hi.toFixed(2)}]`;
+            }
+          }
+        }
+      }
+    }
+  });
+
+  // Bowler CI chart
+  new Chart(document.getElementById('chart-bowl-ci'), {
+    type: 'bar',
+    data: {
+      labels: DATA.bowl.map(p => p.name.split(' ').pop()),
+      datasets: [
+        { label: 'CI Low', data: DATA.ci_bowl.map(c => c.lo), backgroundColor: 'transparent', borderWidth: 0 },
+        { label: 'Rating', data: DATA.bowl.map((p,i) => p.rating - DATA.ci_bowl[i].lo), backgroundColor: green + '99', borderColor: green, borderWidth: 1, borderRadius: { topLeft: 4, topRight: 4 }, barPercentage: 0.6 },
+        { label: 'CI Range', data: DATA.bowl.map((p,i) => DATA.ci_bowl[i].hi - p.rating), backgroundColor: green + '33', borderColor: green + '66', borderWidth: 1, borderRadius: { topLeft: 4, topRight: 4 }, barPercentage: 0.6 }
+      ]
+    },
+    options: {
+      ...chartDefaults,
+      scales: {
+        x: { stacked: true, grid: { display: false } },
+        y: { stacked: true, title: { display: true, text: 'Rating', color: fg }, grid: { color: grid } }
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: (ctx) => {
+              const i = ctx.dataIndex;
+              const p = DATA.bowl[i];
+              return `${p.name}: ${p.rating.toFixed(2)} [${DATA.ci_bowl[i].lo.toFixed(2)}, ${DATA.ci_bowl[i].hi.toFixed(2)}]`;
+            }
+          }
+        }
+      }
+    }
+  });
+
+  // PI by over
+  const overs = Object.keys(DATA.pi_by_over).map(Number);
+  const piVals = overs.map(o => DATA.pi_by_over[o]);
+  new Chart(document.getElementById('chart-pi-over'), {
+    type: 'bar',
+    data: {
+      labels: overs,
+      datasets: [{
+        data: piVals,
+        backgroundColor: piVals.map(v => v > 30 ? amber + 'CC' : v > 20 ? cyan + '99' : purple + '66'),
+        borderRadius: 4,
+        barPercentage: 0.7
+      }]
+    },
+    options: {
+      ...chartDefaults,
+      scales: {
+        x: { title: { display: true, text: 'Over', color: fg }, grid: { display: false } },
+        y: { title: { display: true, text: '% High-Pressure Balls', color: fg }, grid: { color: grid }, beginAtZero: true, max: 50 }
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: ctx => `${ctx.parsed.y}% high-pressure balls` } }
+      }
+    }
+  });
+
+  // Bat scatter: SR pressure vs normal
+  new Chart(document.getElementById('chart-bat-scatter'), {
+    type: 'scatter',
+    data: {
+      datasets: [{
+        data: DATA.bat.map(p => ({ x: p.sr_normal, y: p.sr_pressure, name: p.name })),
+        backgroundColor: accent + 'CC',
+        borderColor: accent,
+        borderWidth: 1.5,
+        pointRadius: 7,
+        pointHoverRadius: 10
+      }]
+    },
+    options: {
+      ...chartDefaults,
+      scales: {
+        x: { title: { display: true, text: 'Strike Rate (Normal)', color: fg }, grid: { color: grid }, min: 110, max: 240 },
+        y: { title: { display: true, text: 'Strike Rate (Pressure)', color: fg }, grid: { color: grid }, min: 110, max: 240 }
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: ctx => `${ctx.raw.name}: ${ctx.raw.y} (P) / ${ctx.raw.x} (N)`
+          }
+        }
+      }
+    },
+    plugins: [{
+      afterDraw(chart) {
+        const { ctx: c, scales: { x, y } } = chart;
+        const minV = Math.max(x.min, y.min);
+        const maxV = Math.min(x.max, y.max);
+        c.save();
+        c.setLineDash([6, 4]);
+        c.strokeStyle = fg;
+        c.lineWidth = 1;
+        c.globalAlpha = 0.4;
+        c.beginPath();
+        c.moveTo(x.getPixelForValue(minV), y.getPixelForValue(minV));
+        c.lineTo(x.getPixelForValue(maxV), y.getPixelForValue(maxV));
+        c.stroke();
+        c.restore();
+      }
+    }]
+  });
+
+  // Bowl scatter: Econ pressure vs normal
+  new Chart(document.getElementById('chart-bowl-scatter'), {
+    type: 'scatter',
+    data: {
+      datasets: [{
+        data: DATA.bowl.map(p => ({ x: p.econ_normal, y: p.econ_pressure, name: p.name })),
+        backgroundColor: green + 'CC',
+        borderColor: green,
+        borderWidth: 1.5,
+        pointRadius: 7,
+        pointHoverRadius: 10
+      }]
+    },
+    options: {
+      ...chartDefaults,
+      scales: {
+        x: { title: { display: true, text: 'Economy (Normal)', color: fg }, grid: { color: grid }, min: 6.5, max: 10, reverse: true },
+        y: { title: { display: true, text: 'Economy (Pressure)', color: fg }, grid: { color: grid }, min: 6.5, max: 10, reverse: true }
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: ctx => `${ctx.raw.name}: ${ctx.raw.y} (P) / ${ctx.raw.x} (N)`
+          }
+        }
+      }
+    },
+    plugins: [{
+      afterDraw(chart) {
+        const { ctx: c, scales: { x, y } } = chart;
+        c.save();
+        c.setLineDash([6, 4]);
+        c.strokeStyle = fg;
+        c.lineWidth = 1;
+        c.globalAlpha = 0.4;
+        c.beginPath();
+        c.moveTo(x.getPixelForValue(6.5), y.getPixelForValue(6.5));
+        c.lineTo(x.getPixelForValue(10), y.getPixelForValue(10));
+        c.stroke();
+        c.restore();
+      }
+    }]
+  });
+
+  // Weights donut
+  new Chart(document.getElementById('chart-weights'), {
+    type: 'doughnut',
+    data: {
+      labels: ['PW-RAE (50%)', 'cWPA (25%)', 'Consistency (15%)', 'Clutch Delta (10%)'],
+      datasets: [{
+        data: [50, 25, 15, 10],
+        backgroundColor: [accent, green, amber, purple],
+        borderWidth: 2,
+        borderColor: theme === 'dark' ? '#131829' : '#FFFFFF',
+        hoverOffset: 6
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      cutout: '55%',
+      plugins: {
+        legend: {
+          display: true,
+          position: 'right',
+          labels: { padding: 16, usePointStyle: true, pointStyle: 'rectRounded', font: { size: 12 } }
+        }
+      }
+    }
+  });
+}
+
+// ═══════ INIT ═══════
+renderBatCards();
+renderBowlCards();
+renderBatTable();
+renderBowlTable();
+renderBat30();
+renderBowl30();
+renderRelBars();
+makeCharts();
+</script>
