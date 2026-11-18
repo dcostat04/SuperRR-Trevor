@@ -2,20 +2,20 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
 <style>
-/* Icestasy-style: bright blue hero, white cards, light blue-grey bg, dark navy nav */
+/* Rajasthan Royals pink theme */
 :root {
-  --bg: #EAF0F7;
+  --bg: #FDF0F4;
   --bg-card: #FFFFFF;
-  --bg-card-hover: #F5F8FC;
-  --nav-bg: #1A1F2E;
-  --hero-from: #2167E8;
-  --hero-to: #3B8BF5;
-  --fg: #1E293B;
-  --fg-secondary: #64748B;
-  --fg-muted: #94A3B8;
-  --accent: #2167E8;
-  --accent-light: #EBF2FF;
-  --accent-icon: #2167E8;
+  --bg-card-hover: #FFF5F8;
+  --nav-bg: #2D1A2E;
+  --hero-from: #EA1B6A;
+  --hero-to: #F74E8B;
+  --fg: #2D1A2E;
+  --fg-secondary: #7B6080;
+  --fg-muted: #A893AC;
+  --accent: #EA1B6A;
+  --accent-light: #FDEAF1;
+  --accent-icon: #EA1B6A;
   --green: #16A34A;
   --green-bg: #F0FDF4;
   --amber: #D97706;
@@ -24,9 +24,9 @@
   --red-bg: #FEF2F2;
   --cyan: #0891B2;
   --purple: #7C3AED;
-  --border: #E2E8F0;
-  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-  --shadow-md: 0 4px 6px rgba(0,0,0,0.05), 0 2px 4px rgba(0,0,0,0.04);
+  --border: #F0D6E0;
+  --shadow: 0 1px 3px rgba(234,27,106,0.08), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 6px rgba(234,27,106,0.08), 0 2px 4px rgba(0,0,0,0.04);
   --radius: 12px;
   --radius-sm: 8px;
   font-variant-numeric: tabular-nums;
@@ -34,18 +34,18 @@
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #0F1420;
-    --bg-card: #1A2035;
-    --bg-card-hover: #1E2742;
-    --nav-bg: #0A0E18;
-    --hero-from: #1A4FBF;
-    --hero-to: #2D6FD9;
-    --fg: #E2E8F0;
-    --fg-secondary: #94A3B8;
-    --fg-muted: #64748B;
-    --accent: #3B82F6;
-    --accent-light: rgba(59,130,246,0.12);
-    --accent-icon: #60A5FA;
+    --bg: #1A0E16;
+    --bg-card: #2D1A2E;
+    --bg-card-hover: #3A2240;
+    --nav-bg: #120A14;
+    --hero-from: #BF1558;
+    --hero-to: #D93D78;
+    --fg: #F0E2EC;
+    --fg-secondary: #A893AC;
+    --fg-muted: #7B6080;
+    --accent: #F74E8B;
+    --accent-light: rgba(234,27,106,0.15);
+    --accent-icon: #F98AB5;
     --green: #22C55E;
     --green-bg: rgba(34,197,94,0.1);
     --amber: #F59E0B;
@@ -54,25 +54,25 @@
     --red-bg: rgba(239,68,68,0.1);
     --cyan: #06B6D4;
     --purple: #A855F7;
-    --border: #1E2A42;
+    --border: #3A2240;
     --shadow: 0 1px 3px rgba(0,0,0,0.3);
     --shadow-md: 0 4px 6px rgba(0,0,0,0.25);
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --bg: #0F1420;
-  --bg-card: #1A2035;
-  --bg-card-hover: #1E2742;
-  --nav-bg: #0A0E18;
-  --hero-from: #1A4FBF;
-  --hero-to: #2D6FD9;
-  --fg: #E2E8F0;
-  --fg-secondary: #94A3B8;
-  --fg-muted: #64748B;
-  --accent: #3B82F6;
-  --accent-light: rgba(59,130,246,0.12);
-  --accent-icon: #60A5FA;
+  --bg: #1A0E16;
+  --bg-card: #2D1A2E;
+  --bg-card-hover: #3A2240;
+  --nav-bg: #120A14;
+  --hero-from: #BF1558;
+  --hero-to: #D93D78;
+  --fg: #F0E2EC;
+  --fg-secondary: #A893AC;
+  --fg-muted: #7B6080;
+  --accent: #F74E8B;
+  --accent-light: rgba(234,27,106,0.15);
+  --accent-icon: #F98AB5;
   --green: #22C55E;
   --green-bg: rgba(34,197,94,0.1);
   --amber: #F59E0B;
@@ -81,7 +81,7 @@
   --red-bg: rgba(239,68,68,0.1);
   --cyan: #06B6D4;
   --purple: #A855F7;
-  --border: #1E2A42;
+  --border: #3A2240;
   --shadow: 0 1px 3px rgba(0,0,0,0.3);
   --shadow-md: 0 4px 6px rgba(0,0,0,0.25);
   color-scheme: dark;
@@ -129,7 +129,7 @@ body::before {
 }
 .nav-logo {
   width: 30px; height: 30px;
-  background: linear-gradient(135deg, #3B82F6, #60A5FA);
+  background: linear-gradient(135deg, #EA1B6A, #F74E8B);
   border-radius: 8px;
   display: flex; align-items: center; justify-content: center;
   font-weight: 800; font-size: 13px; color: #fff;
@@ -176,7 +176,7 @@ body::before {
   align-items: center;
 }
 .nav-tab:hover { color: #CBD5E1; }
-.nav-tab.active { color: #fff; border-bottom-color: #3B82F6; }
+.nav-tab.active { color: #fff; border-bottom-color: #EA1B6A; }
 .nav-right {
   display: flex;
   align-items: center;
@@ -312,7 +312,7 @@ body::before {
 .view-toggle button.active {
   background: var(--accent);
   color: #fff;
-  box-shadow: 0 1px 3px rgba(33,103,232,0.3);
+  box-shadow: 0 1px 3px rgba(234,27,106,0.3);
 }
 
 /* ═══ PLAYER CARDS (white, shadow, blue accent) ═══ */
@@ -394,67 +394,29 @@ tbody tr:hover { background: var(--bg-card-hover); }
 .top-3 { font-weight: 700; }
 
 /* ═══ CHARTS (white card) ═══ */
+.chart-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
 .chart-container {
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 22px;
+  padding: 16px;
   box-shadow: var(--shadow);
-  margin-bottom: 18px;
 }
 .chart-container h3 {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
-  margin-bottom: 16px;
+  margin-bottom: 10px;
   color: var(--fg);
+}
+@media (max-width: 700px) {
+  .chart-grid { grid-template-columns: 1fr; }
 }
 canvas { width: 100% !important; }
 
-/* ═══ METHOD CARDS (white, blue number badges) ═══ */
-.method-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 14px;
-  margin-bottom: 24px;
-}
-.method-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 22px;
-  box-shadow: var(--shadow);
-}
-.method-card h4 {
-  font-size: 14px;
-  font-weight: 700;
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.method-card p { font-size: 13px; color: var(--fg-secondary); line-height: 1.65; }
-.method-num {
-  width: 28px; height: 28px;
-  border-radius: 8px;
-  background: var(--accent);
-  color: #fff;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 13px; font-weight: 800;
-  flex-shrink: 0;
-}
-
-/* ═══ CALLOUT (blue glow) ═══ */
-.callout {
-  background: var(--accent-light);
-  border: 1px solid var(--accent);
-  border-radius: var(--radius);
-  padding: 22px 26px;
-  margin-bottom: 24px;
-  box-shadow: 0 0 0 4px rgba(33,103,232,0.06);
-}
-.callout h3 { font-size: 16px; font-weight: 800; color: var(--accent); margin-bottom: 8px; }
-.callout p { font-size: 14px; color: var(--fg-secondary); line-height: 1.7; }
-.callout strong { color: var(--fg); }
 
 /* ═══ RELIABILITY BARS ═══ */
 .rel-wrap {
@@ -494,7 +456,6 @@ canvas { width: 100% !important; }
 @media (max-width: 600px) {
   .player-grid { grid-template-columns: 1fr; }
   .stats-row { grid-template-columns: repeat(2, 1fr); }
-  .method-grid { grid-template-columns: 1fr; }
   .hero { padding: 22px 20px; }
   .hero h1 { font-size: 20px; }
   .container { padding: 16px 0 32px; }
@@ -515,7 +476,6 @@ canvas { width: 100% !important; }
     <button class="nav-tab active" data-tab="batters">Batters</button>
     <button class="nav-tab" data-tab="bowlers">Bowlers</button>
     <button class="nav-tab" data-tab="charts">Charts</button>
-    <button class="nav-tab" data-tab="methodology">Methodology</button>
     <button class="nav-tab" data-tab="reliability">Reliability</button>
   </div>
   <div class="nav-right">
@@ -630,30 +590,16 @@ canvas { width: 100% !important; }
   <!-- CHARTS TAB -->
   <div class="tab-panel" id="tab-charts">
     <div class="section-header">Visual Analysis</div>
-    <div class="chart-container"><h3>Batter Ratings with 90% Bootstrap CI</h3><canvas id="chart-bat-ci" height="280"></canvas></div>
-    <div class="chart-container"><h3>Bowler Ratings with 90% Bootstrap CI</h3><canvas id="chart-bowl-ci" height="280"></canvas></div>
-    <div class="chart-container"><h3>High-Pressure Ball % by Over</h3><canvas id="chart-pi-over" height="240"></canvas></div>
-    <div class="chart-container"><h3>Batters: Strike Rate Under Pressure vs Normal</h3><canvas id="chart-bat-scatter" height="300"></canvas></div>
-    <div class="chart-container"><h3>Bowlers: Economy Under Pressure vs Normal</h3><canvas id="chart-bowl-scatter" height="300"></canvas></div>
+    <div class="chart-grid">
+      <div class="chart-container"><h3>Batter Ratings (90% CI)</h3><canvas id="chart-bat-ci" height="180"></canvas></div>
+      <div class="chart-container"><h3>Bowler Ratings (90% CI)</h3><canvas id="chart-bowl-ci" height="180"></canvas></div>
+      <div class="chart-container"><h3>Batters: SR Pressure vs Normal</h3><canvas id="chart-bat-scatter" height="200"></canvas></div>
+      <div class="chart-container"><h3>Bowlers: Econ Pressure vs Normal</h3><canvas id="chart-bowl-scatter" height="200"></canvas></div>
+    </div>
+    <div class="chart-container" style="margin-top:14px"><h3>High-Pressure Ball % by Over</h3><canvas id="chart-pi-over" height="150"></canvas></div>
   </div>
 
-  <!-- METHODOLOGY TAB -->
-  <div class="tab-panel" id="tab-methodology">
-    <div class="section-header">How It Works</div>
-    <div class="callout">
-      <h3>The Key Finding</h3>
-      <p>"Clutch" &mdash; doing better than your own normal level under pressure &mdash; is <strong>not a repeatable skill</strong>. The split-half correlation is -0.04 (batting) and 0.03 (bowling). But <strong>quality that holds up under pressure IS real</strong>: the final rating has reliability of 0.32 (batting) and 0.20 (bowling). Some players genuinely maintain their standards when it matters. Others don't.</p>
-    </div>
-    <div class="method-grid">
-      <div class="method-card"><h4><span class="method-num">1</span> Win Probability</h4><p>Monotone HistGradientBoosting trained out-of-fold (5-fold by match). Chase model AUC 0.896. First-innings uses a projected-total model with normal error.</p></div>
-      <div class="method-card"><h4><span class="method-num">2</span> Pressure Index</h4><p>PI = Leverage Index &times; Momentum &times; Stakes. LI measures how much win probability could swing. Momentum amplifies for recent wickets or dots. Knockouts get 1.2&times; boost. Top 25% are "high pressure" (PI &ge; 1.395).</p></div>
-      <div class="method-card"><h4><span class="method-num">3</span> Expected Outcomes</h4><p>ML models predict what an average player would do on each delivery given the exact situation. RAE = what you did minus what average would have done, adjusted for wicket value.</p></div>
-      <div class="method-card"><h4><span class="method-num">4</span> Fair Comparisons</h4><p>Opposition quality weighted (full members 1.0, associates 0.60). Empirical-Bayes shrinkage prevents hot streaks from beating sustained excellence. &ge;150 HP balls + &ge;20 matches to qualify.</p></div>
-      <div class="method-card"><h4><span class="method-num">5</span> Composite Rating</h4><p>50% pressure-weighted RAE + 25% context-neutral WPA + 15% consistency + 10% clutch delta. Weights reflect each component's reliability. All z-scored.</p></div>
-      <div class="method-card"><h4><span class="method-num">6</span> Robustness</h4><p>300 match-level bootstrap resamples give confidence intervals. Split-half reliability confirms which signals are real. 15 sensitivity scenarios test alternative assumptions.</p></div>
-    </div>
-    <div class="chart-container"><h3>Rating Composite Weights</h3><canvas id="chart-weights" height="200"></canvas></div>
-  </div>
+
 
   <!-- RELIABILITY TAB -->
   <div class="tab-panel" id="tab-reliability">
@@ -903,12 +849,7 @@ function makeCharts() {
     plugins:[{afterDraw(ch){const{ctx:c,scales:{x,y}}=ch;c.save();c.setLineDash([6,4]);c.strokeStyle=fg;c.lineWidth=1;c.globalAlpha=0.4;c.beginPath();c.moveTo(x.getPixelForValue(6.5),y.getPixelForValue(6.5));c.lineTo(x.getPixelForValue(10),y.getPixelForValue(10));c.stroke();c.restore()}}]
   });
 
-  // Weights donut
-  const bg = getCSSVar('--bg-card') || '#fff';
-  new Chart(document.getElementById('chart-weights'), {
-    type:'doughnut', data:{labels:['PW-RAE (50%)','cWPA (25%)','Consistency (15%)','Clutch Delta (10%)'],datasets:[{data:[50,25,15,10],backgroundColor:[accent,green,amber,purple],borderWidth:2,borderColor:bg,hoverOffset:6}]},
-    options:{responsive:true,maintainAspectRatio:false,cutout:'55%',plugins:{legend:{display:true,position:'right',labels:{padding:16,usePointStyle:true,pointStyle:'rectRounded',font:{size:12}}}}}
-  });
+
 }
 
 // Init
