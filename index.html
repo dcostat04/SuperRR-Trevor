@@ -2,20 +2,20 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
 <style>
-/* Rajasthan Royals pink theme */
+/* Rajasthan Royals pink + royal blue theme (matches jersey) */
 :root {
-  --bg: #FDF0F4;
+  --bg: #FFF0F5;
   --bg-card: #FFFFFF;
-  --bg-card-hover: #FFF5F8;
-  --nav-bg: #2D1A2E;
-  --hero-from: #EA1B6A;
-  --hero-to: #F74E8B;
-  --fg: #2D1A2E;
-  --fg-secondary: #7B6080;
-  --fg-muted: #A893AC;
-  --accent: #EA1B6A;
-  --accent-light: #FDEAF1;
-  --accent-icon: #EA1B6A;
+  --bg-card-hover: #FFF5F9;
+  --nav-bg: #232169;
+  --hero-from: #E8369B;
+  --hero-to: #F062B0;
+  --fg: #1E1850;
+  --fg-secondary: #6B5F8A;
+  --fg-muted: #9D93B0;
+  --accent: #E8369B;
+  --accent-light: #FDE8F3;
+  --accent-icon: #E8369B;
   --green: #16A34A;
   --green-bg: #F0FDF4;
   --amber: #D97706;
@@ -24,9 +24,9 @@
   --red-bg: #FEF2F2;
   --cyan: #0891B2;
   --purple: #7C3AED;
-  --border: #F0D6E0;
-  --shadow: 0 1px 3px rgba(234,27,106,0.08), 0 1px 2px rgba(0,0,0,0.04);
-  --shadow-md: 0 4px 6px rgba(234,27,106,0.08), 0 2px 4px rgba(0,0,0,0.04);
+  --border: #F0D4E2;
+  --shadow: 0 1px 3px rgba(232,54,155,0.08), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 6px rgba(232,54,155,0.08), 0 2px 4px rgba(0,0,0,0.04);
   --radius: 12px;
   --radius-sm: 8px;
   font-variant-numeric: tabular-nums;
@@ -34,18 +34,18 @@
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #1A0E16;
-    --bg-card: #2D1A2E;
-    --bg-card-hover: #3A2240;
-    --nav-bg: #120A14;
-    --hero-from: #BF1558;
-    --hero-to: #D93D78;
-    --fg: #F0E2EC;
-    --fg-secondary: #A893AC;
-    --fg-muted: #7B6080;
-    --accent: #F74E8B;
-    --accent-light: rgba(234,27,106,0.15);
-    --accent-icon: #F98AB5;
+    --bg: #110F30;
+    --bg-card: #1C1952;
+    --bg-card-hover: #252264;
+    --nav-bg: #0C0A22;
+    --hero-from: #C02A80;
+    --hero-to: #D94E9A;
+    --fg: #EDE6F4;
+    --fg-secondary: #A89CBC;
+    --fg-muted: #7B6F96;
+    --accent: #F062B0;
+    --accent-light: rgba(232,54,155,0.15);
+    --accent-icon: #F98ABE;
     --green: #22C55E;
     --green-bg: rgba(34,197,94,0.1);
     --amber: #F59E0B;
@@ -54,25 +54,25 @@
     --red-bg: rgba(239,68,68,0.1);
     --cyan: #06B6D4;
     --purple: #A855F7;
-    --border: #3A2240;
+    --border: #2A2660;
     --shadow: 0 1px 3px rgba(0,0,0,0.3);
     --shadow-md: 0 4px 6px rgba(0,0,0,0.25);
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --bg: #1A0E16;
-  --bg-card: #2D1A2E;
-  --bg-card-hover: #3A2240;
-  --nav-bg: #120A14;
-  --hero-from: #BF1558;
-  --hero-to: #D93D78;
-  --fg: #F0E2EC;
-  --fg-secondary: #A893AC;
-  --fg-muted: #7B6080;
-  --accent: #F74E8B;
-  --accent-light: rgba(234,27,106,0.15);
-  --accent-icon: #F98AB5;
+  --bg: #110F30;
+  --bg-card: #1C1952;
+  --bg-card-hover: #252264;
+  --nav-bg: #0C0A22;
+  --hero-from: #C02A80;
+  --hero-to: #D94E9A;
+  --fg: #EDE6F4;
+  --fg-secondary: #A89CBC;
+  --fg-muted: #7B6F96;
+  --accent: #F062B0;
+  --accent-light: rgba(232,54,155,0.15);
+  --accent-icon: #F98ABE;
   --green: #22C55E;
   --green-bg: rgba(34,197,94,0.1);
   --amber: #F59E0B;
@@ -81,7 +81,7 @@
   --red-bg: rgba(239,68,68,0.1);
   --cyan: #06B6D4;
   --purple: #A855F7;
-  --border: #3A2240;
+  --border: #2A2660;
   --shadow: 0 1px 3px rgba(0,0,0,0.3);
   --shadow-md: 0 4px 6px rgba(0,0,0,0.25);
   color-scheme: dark;
@@ -129,7 +129,7 @@ body::before {
 }
 .nav-logo {
   width: 30px; height: 30px;
-  background: linear-gradient(135deg, #EA1B6A, #F74E8B);
+  background: linear-gradient(135deg, #E8369B, #F062B0);
   border-radius: 8px;
   display: flex; align-items: center; justify-content: center;
   font-weight: 800; font-size: 13px; color: #fff;
@@ -176,7 +176,7 @@ body::before {
   align-items: center;
 }
 .nav-tab:hover { color: #CBD5E1; }
-.nav-tab.active { color: #fff; border-bottom-color: #EA1B6A; }
+.nav-tab.active { color: #fff; border-bottom-color: #E8369B; }
 .nav-right {
   display: flex;
   align-items: center;
@@ -312,7 +312,7 @@ body::before {
 .view-toggle button.active {
   background: var(--accent);
   color: #fff;
-  box-shadow: 0 1px 3px rgba(234,27,106,0.3);
+  box-shadow: 0 1px 3px rgba(232,54,155,0.3);
 }
 
 /* ═══ PLAYER CARDS (white, shadow, blue accent) ═══ */
@@ -479,7 +479,7 @@ canvas { width: 100% !important; }
     <button class="nav-tab" data-tab="reliability">Reliability</button>
   </div>
   <div class="nav-right">
-    <div class="nav-avatar">DC</div><span style="color:#94A3B8;font-size:12px;font-weight:500">Trevor D'Costa</span>
+    <div class="nav-avatar">TD</div><span style="color:#94A3B8;font-size:12px;font-weight:500">Trevor D'Costa</span>
   </div>
 </nav>
 
