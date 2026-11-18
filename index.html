@@ -1,77 +1,90 @@
 <title>SupeRR Pressure Rankings</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
 <style>
-/* Layout: stat tiles row → tab nav → main content area with tables and charts */
+/* Icestasy-style: bright blue hero, white cards, light blue-grey bg, dark navy nav */
 :root {
-  --bg: #0B0F1A;
-  --bg-card: #131829;
-  --bg-card-hover: #1A2038;
-  --bg-surface: #0E1222;
-  --fg: #E8ECF4;
-  --fg-secondary: #8B93A7;
-  --fg-muted: #565E73;
-  --accent: #3B82F6;
-  --accent-glow: rgba(59, 130, 246, 0.15);
-  --green: #22C55E;
-  --green-dim: rgba(34, 197, 94, 0.12);
-  --amber: #F59E0B;
-  --amber-dim: rgba(245, 158, 11, 0.12);
-  --red: #EF4444;
-  --red-dim: rgba(239, 68, 68, 0.12);
-  --cyan: #06B6D4;
-  --purple: #A855F7;
-  --border: #1E2640;
-  --radius: 10px;
-  --radius-sm: 6px;
+  --bg: #EAF0F7;
+  --bg-card: #FFFFFF;
+  --bg-card-hover: #F5F8FC;
+  --nav-bg: #1A1F2E;
+  --hero-from: #2167E8;
+  --hero-to: #3B8BF5;
+  --fg: #1E293B;
+  --fg-secondary: #64748B;
+  --fg-muted: #94A3B8;
+  --accent: #2167E8;
+  --accent-light: #EBF2FF;
+  --accent-icon: #2167E8;
+  --green: #16A34A;
+  --green-bg: #F0FDF4;
+  --amber: #D97706;
+  --amber-bg: #FFFBEB;
+  --red: #DC2626;
+  --red-bg: #FEF2F2;
+  --cyan: #0891B2;
+  --purple: #7C3AED;
+  --border: #E2E8F0;
+  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 6px rgba(0,0,0,0.05), 0 2px 4px rgba(0,0,0,0.04);
+  --radius: 12px;
+  --radius-sm: 8px;
   font-variant-numeric: tabular-nums;
-  color-scheme: dark;
+  color-scheme: light;
 }
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme="dark"]) {
-    --bg: #F5F7FA;
-    --bg-card: #FFFFFF;
-    --bg-card-hover: #F0F2F7;
-    --bg-surface: #EEF1F6;
-    --fg: #111827;
-    --fg-secondary: #4B5563;
-    --fg-muted: #9CA3AF;
-    --accent: #2563EB;
-    --accent-glow: rgba(37, 99, 235, 0.08);
-    --green: #16A34A;
-    --green-dim: rgba(22, 163, 74, 0.08);
-    --amber: #D97706;
-    --amber-dim: rgba(217, 119, 6, 0.08);
-    --red: #DC2626;
-    --red-dim: rgba(220, 38, 38, 0.08);
-    --cyan: #0891B2;
-    --purple: #9333EA;
-    --border: #E5E7EB;
-    --radius: 10px;
-    --radius-sm: 6px;
-    color-scheme: light;
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0F1420;
+    --bg-card: #1A2035;
+    --bg-card-hover: #1E2742;
+    --nav-bg: #0A0E18;
+    --hero-from: #1A4FBF;
+    --hero-to: #2D6FD9;
+    --fg: #E2E8F0;
+    --fg-secondary: #94A3B8;
+    --fg-muted: #64748B;
+    --accent: #3B82F6;
+    --accent-light: rgba(59,130,246,0.12);
+    --accent-icon: #60A5FA;
+    --green: #22C55E;
+    --green-bg: rgba(34,197,94,0.1);
+    --amber: #F59E0B;
+    --amber-bg: rgba(245,158,11,0.1);
+    --red: #EF4444;
+    --red-bg: rgba(239,68,68,0.1);
+    --cyan: #06B6D4;
+    --purple: #A855F7;
+    --border: #1E2A42;
+    --shadow: 0 1px 3px rgba(0,0,0,0.3);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.25);
+    color-scheme: dark;
   }
 }
-:root[data-theme="light"] {
-  --bg: #F5F7FA;
-  --bg-card: #FFFFFF;
-  --bg-card-hover: #F0F2F7;
-  --bg-surface: #EEF1F6;
-  --fg: #111827;
-  --fg-secondary: #4B5563;
-  --fg-muted: #9CA3AF;
-  --accent: #2563EB;
-  --accent-glow: rgba(37, 99, 235, 0.08);
-  --green: #16A34A;
-  --green-dim: rgba(22, 163, 74, 0.08);
-  --amber: #D97706;
-  --amber-dim: rgba(217, 119, 6, 0.08);
-  --red: #DC2626;
-  --red-dim: rgba(220, 38, 38, 0.08);
-  --cyan: #0891B2;
-  --purple: #9333EA;
-  --border: #E5E7EB;
-  color-scheme: light;
+:root[data-theme="dark"] {
+  --bg: #0F1420;
+  --bg-card: #1A2035;
+  --bg-card-hover: #1E2742;
+  --nav-bg: #0A0E18;
+  --hero-from: #1A4FBF;
+  --hero-to: #2D6FD9;
+  --fg: #E2E8F0;
+  --fg-secondary: #94A3B8;
+  --fg-muted: #64748B;
+  --accent: #3B82F6;
+  --accent-light: rgba(59,130,246,0.12);
+  --accent-icon: #60A5FA;
+  --green: #22C55E;
+  --green-bg: rgba(34,197,94,0.1);
+  --amber: #F59E0B;
+  --amber-bg: rgba(245,158,11,0.1);
+  --red: #EF4444;
+  --red-bg: rgba(239,68,68,0.1);
+  --cyan: #06B6D4;
+  --purple: #A855F7;
+  --border: #1E2A42;
+  --shadow: 0 1px 3px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 6px rgba(0,0,0,0.25);
+  color-scheme: dark;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -90,387 +103,385 @@ body::before {
   position: fixed;
   inset: 0 0 auto;
   height: env(safe-area-inset-top, 0px);
-  z-index: 10;
-  background: var(--bg);
+  z-index: 50;
+  background: var(--nav-bg);
 }
 
-.container { max-width: 1200px; margin: 0 auto; padding: 24px 0 48px; }
-
-/* Header */
-.header {
+/* ═══ TOP NAV (Icestasy-style dark bar) ═══ */
+.top-nav {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 40;
+  background: var(--nav-bg);
+  margin: 0 calc(-1 * max(16px, env(safe-area-inset-left, 0px)));
+  padding: 0 max(16px, env(safe-area-inset-left, 0px));
   display: flex;
   align-items: center;
-  gap: 16px;
-  margin-bottom: 28px;
-  flex-wrap: wrap;
+  height: 52px;
+  gap: 0;
 }
-.logo {
-  width: 48px; height: 48px;
-  background: linear-gradient(135deg, var(--accent), var(--purple));
-  border-radius: var(--radius);
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 700; font-size: 20px; color: #fff;
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-right: 28px;
   flex-shrink: 0;
 }
-.header-text h1 {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: clamp(20px, 4vw, 28px);
+.nav-logo {
+  width: 30px; height: 30px;
+  background: linear-gradient(135deg, #3B82F6, #60A5FA);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 13px; color: #fff;
+}
+.nav-brand-text {
+  color: #fff;
   font-weight: 700;
-  letter-spacing: -0.5px;
-  line-height: 1.2;
+  font-size: 15px;
+  letter-spacing: -0.3px;
 }
-.header-text p {
-  color: var(--fg-secondary);
-  font-size: 13px;
-  margin-top: 2px;
-}
-.badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 4px 10px;
-  border-radius: 100px;
-  font-size: 11px;
+.nav-brand-sub {
+  color: #64748B;
+  font-size: 9px;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
+  display: block;
+  line-height: 1;
+  margin-top: -1px;
 }
-.badge-live { background: var(--green-dim); color: var(--green); }
-.badge-live::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
+.nav-tabs {
+  display: flex;
+  gap: 0;
+  height: 52px;
+  align-items: stretch;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  flex: 1;
+  min-width: 0;
+}
+.nav-tab {
+  padding: 0 16px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #94A3B8;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.15s, border-color 0.15s;
+  display: flex;
+  align-items: center;
+}
+.nav-tab:hover { color: #CBD5E1; }
+.nav-tab.active { color: #fff; border-bottom-color: #3B82F6; }
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+.nav-avatar {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--hero-from), var(--hero-to));
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 12px; color: #fff;
+}
 
-/* Stat tiles */
+/* ═══ HERO BANNER (blue gradient, rounded) ═══ */
+.container { max-width: 1200px; margin: 0 auto; padding: 20px 0 48px; }
+.hero {
+  background: linear-gradient(135deg, var(--hero-from), var(--hero-to));
+  border-radius: var(--radius);
+  padding: 28px 32px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.hero h1 {
+  font-size: clamp(20px, 4vw, 26px);
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+.hero p {
+  font-size: 14px;
+  opacity: 0.85;
+  margin-top: 4px;
+}
+.hero-badge {
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 100px;
+  padding: 8px 20px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  white-space: nowrap;
+}
+
+/* ═══ STAT TILES (white cards, blue icons) ═══ */
 .stats-row {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 14px;
   margin-bottom: 24px;
 }
 .stat-tile {
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 16px 18px;
-  position: relative;
-  overflow: hidden;
+  padding: 18px 20px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
-.stat-tile::after {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
+.stat-icon {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
 }
-.stat-tile:nth-child(1)::after { background: var(--accent); }
-.stat-tile:nth-child(2)::after { background: var(--green); }
-.stat-tile:nth-child(3)::after { background: var(--amber); }
-.stat-tile:nth-child(4)::after { background: var(--cyan); }
-.stat-tile:nth-child(5)::after { background: var(--purple); }
+.stat-icon-blue { background: var(--accent-light); color: var(--accent-icon); }
+.stat-icon-green { background: var(--green-bg); color: var(--green); }
+.stat-icon-amber { background: var(--amber-bg); color: var(--amber); }
+.stat-icon-cyan { background: var(--accent-light); color: var(--cyan); }
+.stat-icon-purple { background: var(--accent-light); color: var(--purple); }
 .stat-label {
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.6px;
-  color: var(--fg-muted);
-  margin-bottom: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--fg-secondary);
 }
 .stat-value {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 26px;
-  font-weight: 700;
-  line-height: 1.1;
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.5px;
 }
 .stat-sub {
-  font-size: 12px;
-  color: var(--fg-secondary);
-  margin-top: 4px;
+  font-size: 11px;
+  color: var(--fg-muted);
 }
 
-/* Tab nav */
-.tab-nav {
-  display: flex;
-  gap: 4px;
-  border-bottom: 1px solid var(--border);
-  margin-bottom: 24px;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-}
-.tab-btn {
-  padding: 10px 18px;
-  font-family: 'Inter', sans-serif;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--fg-muted);
-  background: none;
-  border: none;
-  border-bottom: 2px solid transparent;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: color 0.15s, border-color 0.15s;
-}
-.tab-btn:hover { color: var(--fg-secondary); }
-.tab-btn.active {
+/* ═══ SECTION HEADERS (uppercase, blue, Icestasy style) ═══ */
+.section-header {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
   color: var(--accent);
-  border-bottom-color: var(--accent);
+  margin-bottom: 14px;
+  margin-top: 8px;
 }
+
+/* ═══ TAB CONTENT ═══ */
 .tab-panel { display: none; }
 .tab-panel.active { display: block; }
 
-/* Section headers */
-.section-title {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 18px;
-  font-weight: 700;
-  margin-bottom: 16px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.section-title .dot {
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-
-/* Player cards (top 10) */
-.player-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-  gap: 12px;
-  margin-bottom: 32px;
-}
-.player-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 16px;
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  gap: 14px;
-  align-items: center;
-  transition: border-color 0.15s, background 0.15s;
-}
-.player-card:hover {
-  border-color: var(--accent);
-  background: var(--bg-card-hover);
-}
-.player-rank {
-  width: 36px; height: 36px;
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 700; font-size: 14px;
-  flex-shrink: 0;
-}
-.rank-gold { background: linear-gradient(135deg, #F59E0B, #D97706); color: #000; }
-.rank-silver { background: linear-gradient(135deg, #94A3B8, #64748B); color: #fff; }
-.rank-bronze { background: linear-gradient(135deg, #CD7F32, #A0522D); color: #fff; }
-.rank-default { background: var(--bg-surface); border: 1px solid var(--border); color: var(--fg-secondary); }
-.player-info { min-width: 0; }
-.player-name {
-  font-weight: 600;
-  font-size: 14px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.player-meta {
-  font-size: 12px;
-  color: var(--fg-secondary);
-  margin-top: 2px;
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-.player-rating-box { text-align: right; flex-shrink: 0; }
-.player-rating-num {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--accent);
-  line-height: 1;
-}
-.player-confidence {
-  font-size: 11px;
-  color: var(--fg-muted);
-  margin-top: 3px;
-}
-.conf-bar {
-  display: inline-block;
-  width: 40px; height: 4px;
-  background: var(--bg-surface);
-  border-radius: 2px;
-  overflow: hidden;
-  vertical-align: middle;
-  margin-right: 4px;
-}
-.conf-fill {
-  height: 100%;
-  border-radius: 2px;
-  background: var(--green);
-}
-
-/* Full table */
-.table-wrap {
-  overflow-x: auto;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  margin-bottom: 24px;
-}
-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 13px;
-}
-thead th {
-  position: sticky;
-  top: 0;
-  background: var(--bg-card);
-  padding: 10px 12px;
-  text-align: left;
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: var(--fg-muted);
-  border-bottom: 1px solid var(--border);
-  white-space: nowrap;
-}
-thead th.num { text-align: right; }
-tbody td {
-  padding: 10px 12px;
-  border-bottom: 1px solid var(--border);
-  white-space: nowrap;
-}
-tbody td.num { text-align: right; font-variant-numeric: tabular-nums; }
-tbody tr:last-child td { border-bottom: none; }
-tbody tr:hover { background: var(--bg-card-hover); }
-.top-3 { font-weight: 600; }
-
-/* Charts area */
-.chart-container {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 20px;
-  margin-bottom: 20px;
-}
-.chart-container h3 {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 15px;
-  font-weight: 600;
-  margin-bottom: 16px;
-}
-canvas { width: 100% !important; }
-
-/* Methodology section */
-.method-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 16px;
-  margin-bottom: 24px;
-}
-.method-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 20px;
-}
-.method-card h4 {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 14px;
-  font-weight: 600;
-  margin-bottom: 8px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.method-card p {
-  font-size: 13px;
-  color: var(--fg-secondary);
-  line-height: 1.6;
-}
-.method-num {
-  width: 24px; height: 24px;
-  border-radius: 50%;
-  background: var(--accent-glow);
-  color: var(--accent);
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 12px; font-weight: 700;
-  flex-shrink: 0;
-}
-
-/* Key finding callout */
-.callout {
-  background: var(--accent-glow);
-  border: 1px solid var(--accent);
-  border-radius: var(--radius);
-  padding: 20px 24px;
-  margin-bottom: 24px;
-}
-.callout h3 {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--accent);
-  margin-bottom: 8px;
-}
-.callout p {
-  font-size: 14px;
-  color: var(--fg-secondary);
-  line-height: 1.7;
-}
-.callout strong { color: var(--fg); }
-
-/* Reliability bars */
-.rel-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 8px 0;
-  border-bottom: 1px solid var(--border);
-  font-size: 13px;
-}
-.rel-row:last-child { border-bottom: none; }
-.rel-label { width: 140px; flex-shrink: 0; color: var(--fg-secondary); font-size: 12px; }
-.rel-bars { flex: 1; display: flex; gap: 8px; align-items: center; }
-.rel-bar-wrap { flex: 1; }
-.rel-bar-label { font-size: 10px; color: var(--fg-muted); margin-bottom: 2px; }
-.rel-bar-track {
-  height: 8px;
-  background: var(--bg-surface);
-  border-radius: 4px;
-  overflow: hidden;
-}
-.rel-bar-fill { height: 100%; border-radius: 4px; transition: width 0.6s ease; }
-.rel-bar-val { font-size: 12px; font-weight: 600; width: 36px; text-align: right; }
-
-/* Toggle */
+/* ═══ VIEW TOGGLE ═══ */
 .view-toggle {
   display: inline-flex;
-  background: var(--bg-surface);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
   border-radius: var(--radius-sm);
-  padding: 2px;
+  padding: 3px;
   margin-bottom: 16px;
+  box-shadow: var(--shadow);
 }
 .view-toggle button {
-  padding: 6px 14px;
+  padding: 7px 16px;
   font-family: 'Inter', sans-serif;
   font-size: 12px;
   font-weight: 600;
   color: var(--fg-muted);
   background: none;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
   transition: all 0.15s;
 }
 .view-toggle button.active {
   background: var(--accent);
   color: #fff;
+  box-shadow: 0 1px 3px rgba(33,103,232,0.3);
 }
 
-/* Footer */
+/* ═══ PLAYER CARDS (white, shadow, blue accent) ═══ */
+.player-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 14px;
+  margin-bottom: 28px;
+}
+.player-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px;
+  box-shadow: var(--shadow);
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 14px;
+  align-items: center;
+  transition: box-shadow 0.15s, border-color 0.15s;
+}
+.player-card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--accent);
+}
+.player-rank {
+  width: 38px; height: 38px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 14px;
+  flex-shrink: 0;
+}
+.rank-gold { background: linear-gradient(135deg, #FCD34D, #F59E0B); color: #78350F; }
+.rank-silver { background: linear-gradient(135deg, #CBD5E1, #94A3B8); color: #1E293B; }
+.rank-bronze { background: linear-gradient(135deg, #FDBA74, #EA580C); color: #431407; }
+.rank-default { background: var(--accent-light); color: var(--accent-icon); }
+.player-info { min-width: 0; }
+.player-name { font-weight: 700; font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.player-meta { font-size: 12px; color: var(--fg-secondary); margin-top: 3px; display: flex; gap: 10px; flex-wrap: wrap; }
+.player-meta span { display: inline-flex; align-items: center; gap: 3px; }
+.player-rating-box { text-align: right; flex-shrink: 0; }
+.player-rating-num { font-size: 24px; font-weight: 800; color: var(--accent); line-height: 1; }
+.player-confidence { font-size: 11px; color: var(--fg-muted); margin-top: 4px; }
+.conf-bar {
+  display: inline-block; width: 44px; height: 5px;
+  background: var(--bg); border-radius: 3px;
+  overflow: hidden; vertical-align: middle; margin-right: 4px;
+}
+.conf-fill { height: 100%; border-radius: 3px; background: var(--green); }
+
+/* ═══ TABLES (white card wrap) ═══ */
+.table-wrap {
+  background: var(--bg-card);
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 24px;
+}
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+thead th {
+  position: sticky; top: 0;
+  background: var(--bg-card);
+  padding: 12px 14px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--fg-muted);
+  border-bottom: 2px solid var(--border);
+  white-space: nowrap;
+}
+thead th.num { text-align: right; }
+tbody td { padding: 11px 14px; border-bottom: 1px solid var(--border); white-space: nowrap; }
+tbody td.num { text-align: right; }
+tbody tr:last-child td { border-bottom: none; }
+tbody tr:hover { background: var(--bg-card-hover); }
+.top-3 { font-weight: 700; }
+
+/* ═══ CHARTS (white card) ═══ */
+.chart-container {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px;
+  box-shadow: var(--shadow);
+  margin-bottom: 18px;
+}
+.chart-container h3 {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: var(--fg);
+}
+canvas { width: 100% !important; }
+
+/* ═══ METHOD CARDS (white, blue number badges) ═══ */
+.method-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 14px;
+  margin-bottom: 24px;
+}
+.method-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px;
+  box-shadow: var(--shadow);
+}
+.method-card h4 {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.method-card p { font-size: 13px; color: var(--fg-secondary); line-height: 1.65; }
+.method-num {
+  width: 28px; height: 28px;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 800;
+  flex-shrink: 0;
+}
+
+/* ═══ CALLOUT (blue glow) ═══ */
+.callout {
+  background: var(--accent-light);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 22px 26px;
+  margin-bottom: 24px;
+  box-shadow: 0 0 0 4px rgba(33,103,232,0.06);
+}
+.callout h3 { font-size: 16px; font-weight: 800; color: var(--accent); margin-bottom: 8px; }
+.callout p { font-size: 14px; color: var(--fg-secondary); line-height: 1.7; }
+.callout strong { color: var(--fg); }
+
+/* ═══ RELIABILITY BARS ═══ */
+.rel-wrap {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 22px;
+  box-shadow: var(--shadow);
+}
+.rel-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+}
+.rel-row:last-child { border-bottom: none; }
+.rel-label { width: 140px; flex-shrink: 0; color: var(--fg-secondary); font-size: 12px; font-weight: 500; }
+.rel-bars { flex: 1; display: flex; gap: 8px; align-items: center; }
+.rel-bar-wrap { flex: 1; }
+.rel-bar-label { font-size: 10px; color: var(--fg-muted); margin-bottom: 3px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+.rel-bar-track { height: 8px; background: var(--bg); border-radius: 4px; overflow: hidden; }
+.rel-bar-fill { height: 100%; border-radius: 4px; transition: width 0.6s ease; }
+.rel-bar-val { font-size: 12px; font-weight: 700; width: 36px; text-align: right; }
+
+/* ═══ FOOTER ═══ */
 .footer {
   text-align: center;
   padding: 24px 0;
@@ -480,242 +491,184 @@ canvas { width: 100% !important; }
   font-size: 12px;
 }
 
-/* Responsive */
 @media (max-width: 600px) {
   .player-grid { grid-template-columns: 1fr; }
   .stats-row { grid-template-columns: repeat(2, 1fr); }
   .method-grid { grid-template-columns: 1fr; }
-  .header { gap: 12px; }
+  .hero { padding: 22px 20px; }
+  .hero h1 { font-size: 20px; }
   .container { padding: 16px 0 32px; }
+  .nav-tab { padding: 0 12px; font-size: 12px; }
 }
 </style>
 
-<div class="container">
-  <!-- Header -->
-  <div class="header">
-    <div class="logo">SR</div>
-    <div class="header-text">
-      <h1>SupeRR Pressure Rankings</h1>
-      <p>Who delivers when it matters? T20 performance under pressure, 2022-2026</p>
+<!-- TOP NAV -->
+<nav class="top-nav">
+  <div class="nav-brand">
+    <div class="nav-logo">SR</div>
+    <div>
+      <div class="nav-brand-text">SupeRR</div>
+      <span class="nav-brand-sub">Pressure Rankings</span>
     </div>
-    <span class="badge badge-live">Season 2</span>
+  </div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" data-tab="batters">Batters</button>
+    <button class="nav-tab" data-tab="bowlers">Bowlers</button>
+    <button class="nav-tab" data-tab="charts">Charts</button>
+    <button class="nav-tab" data-tab="methodology">Methodology</button>
+    <button class="nav-tab" data-tab="reliability">Reliability</button>
+  </div>
+  <div class="nav-right">
+    <div class="nav-avatar">S2</div>
+  </div>
+</nav>
+
+<div class="container">
+  <!-- HERO BANNER -->
+  <div class="hero">
+    <div>
+      <h1>Who Delivers When It Matters?</h1>
+      <p>T20 batters and bowlers ranked by performance under pressure, 2022-2026</p>
+    </div>
+    <div class="hero-badge">Season 2 &middot; Round 1</div>
   </div>
 
-  <!-- Stat tiles -->
+  <!-- STAT TILES -->
   <div class="stats-row">
     <div class="stat-tile">
+      <div class="stat-icon stat-icon-blue">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 10h4l3-7 4 14 3-7h4"/></svg>
+      </div>
       <div class="stat-label">Matches Analysed</div>
       <div class="stat-value">842</div>
       <div class="stat-sub">IPL 362 / T20I 450 / Other 30</div>
     </div>
     <div class="stat-tile">
+      <div class="stat-icon stat-icon-green">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10" cy="10" r="7"/><path d="M10 6v4l2.5 2.5"/></svg>
+      </div>
       <div class="stat-label">Deliveries</div>
       <div class="stat-value">199,029</div>
       <div class="stat-sub">Ball-by-ball data</div>
     </div>
     <div class="stat-tile">
+      <div class="stat-icon stat-icon-amber">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 3h10l-2 7h4L7 18l2-7H5l2-8z"/></svg>
+      </div>
       <div class="stat-label">Eligible Batters</div>
       <div class="stat-value">106</div>
       <div class="stat-sub">&ge;150 HP balls, &ge;20 matches</div>
     </div>
     <div class="stat-tile">
+      <div class="stat-icon stat-icon-cyan">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10" cy="10" r="3"/><path d="M10 3v2m0 10v2m-7-7h2m10 0h2m-2.5-4.5-1.4 1.4m-7.2 7.2-1.4 1.4m0-10 1.4 1.4m7.2 7.2 1.4 1.4"/></svg>
+      </div>
       <div class="stat-label">Eligible Bowlers</div>
       <div class="stat-value">101</div>
       <div class="stat-sub">&ge;150 HP balls, &ge;20 matches</div>
     </div>
     <div class="stat-tile">
+      <div class="stat-icon stat-icon-purple">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 16l4-4 3 3 5-5"/><path d="M12 10h4v4"/></svg>
+      </div>
       <div class="stat-label">Chase WP Model</div>
       <div class="stat-value">0.896</div>
       <div class="stat-sub">AUC (out-of-fold)</div>
     </div>
   </div>
 
-  <!-- Tab navigation -->
-  <nav class="tab-nav" role="tablist">
-    <button class="tab-btn active" data-tab="batters" role="tab">Batters</button>
-    <button class="tab-btn" data-tab="bowlers" role="tab">Bowlers</button>
-    <button class="tab-btn" data-tab="charts" role="tab">Charts</button>
-    <button class="tab-btn" data-tab="methodology" role="tab">Methodology</button>
-    <button class="tab-btn" data-tab="reliability" role="tab">Reliability</button>
-  </nav>
-
   <!-- BATTERS TAB -->
   <div class="tab-panel active" id="tab-batters">
-    <div class="section-title"><span class="dot" style="background:var(--accent)"></span> Top 10 Batters Under Pressure</div>
-
+    <div class="section-header">Top 10 Batters Under Pressure</div>
     <div class="view-toggle" data-target="bat">
       <button class="active" data-view="cards">Cards</button>
-      <button data-view="table">Full Table</button>
+      <button data-view="table">Table</button>
     </div>
-
     <div id="bat-cards" class="player-grid"></div>
-
     <div id="bat-table" style="display:none">
       <div class="table-wrap">
         <table>
-          <thead>
-            <tr>
-              <th>#</th><th>Player</th><th class="num">Rating</th><th class="num">P(Top 10)</th>
-              <th class="num">HP Balls</th><th class="num">Matches</th>
-              <th class="num">SR (Pressure)</th><th class="num">SR (Normal)</th>
-              <th class="num">90% CI</th>
-            </tr>
-          </thead>
+          <thead><tr><th>#</th><th>Player</th><th class="num">Rating</th><th class="num">P(Top 10)</th><th class="num">HP Balls</th><th class="num">Matches</th><th class="num">SR (Pressure)</th><th class="num">SR (Normal)</th><th class="num">90% CI</th></tr></thead>
           <tbody id="bat-tbody"></tbody>
         </table>
       </div>
     </div>
-
-    <div style="margin-top:8px">
-      <div class="section-title" style="font-size:15px"><span class="dot" style="background:var(--fg-muted)"></span> Extended Rankings (Top 30)</div>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>#</th><th>Player</th><th class="num">Rating</th><th class="num">P(Top 10)</th>
-              <th class="num">HP Balls</th><th class="num">Matches</th>
-              <th class="num">SR (Pressure)</th><th class="num">SR (Normal)</th>
-            </tr>
-          </thead>
-          <tbody id="bat30-tbody"></tbody>
-        </table>
-      </div>
+    <div class="section-header" style="margin-top:20px">Extended Rankings (Top 30)</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>#</th><th>Player</th><th class="num">Rating</th><th class="num">P(Top 10)</th><th class="num">HP Balls</th><th class="num">Matches</th><th class="num">SR (Pressure)</th><th class="num">SR (Normal)</th></tr></thead>
+        <tbody id="bat30-tbody"></tbody>
+      </table>
     </div>
   </div>
 
   <!-- BOWLERS TAB -->
   <div class="tab-panel" id="tab-bowlers">
-    <div class="section-title"><span class="dot" style="background:var(--green)"></span> Top 10 Bowlers Under Pressure</div>
-
+    <div class="section-header">Top 10 Bowlers Under Pressure</div>
     <div class="view-toggle" data-target="bowl">
       <button class="active" data-view="cards">Cards</button>
-      <button data-view="table">Full Table</button>
+      <button data-view="table">Table</button>
     </div>
-
     <div id="bowl-cards" class="player-grid"></div>
-
     <div id="bowl-table" style="display:none">
       <div class="table-wrap">
         <table>
-          <thead>
-            <tr>
-              <th>#</th><th>Player</th><th class="num">Rating</th><th class="num">P(Top 10)</th>
-              <th class="num">HP Balls</th><th class="num">Matches</th>
-              <th class="num">Econ (Pressure)</th><th class="num">Econ (Normal)</th>
-              <th class="num">90% CI</th>
-            </tr>
-          </thead>
+          <thead><tr><th>#</th><th>Player</th><th class="num">Rating</th><th class="num">P(Top 10)</th><th class="num">HP Balls</th><th class="num">Matches</th><th class="num">Econ (Pressure)</th><th class="num">Econ (Normal)</th><th class="num">90% CI</th></tr></thead>
           <tbody id="bowl-tbody"></tbody>
         </table>
       </div>
     </div>
-
-    <div style="margin-top:8px">
-      <div class="section-title" style="font-size:15px"><span class="dot" style="background:var(--fg-muted)"></span> Extended Rankings (Top 30)</div>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>#</th><th>Player</th><th class="num">Rating</th><th class="num">P(Top 10)</th>
-              <th class="num">HP Balls</th><th class="num">Matches</th>
-              <th class="num">Econ (Pressure)</th><th class="num">Econ (Normal)</th>
-            </tr>
-          </thead>
-          <tbody id="bowl30-tbody"></tbody>
-        </table>
-      </div>
+    <div class="section-header" style="margin-top:20px">Extended Rankings (Top 30)</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>#</th><th>Player</th><th class="num">Rating</th><th class="num">P(Top 10)</th><th class="num">HP Balls</th><th class="num">Matches</th><th class="num">Econ (Pressure)</th><th class="num">Econ (Normal)</th></tr></thead>
+        <tbody id="bowl30-tbody"></tbody>
+      </table>
     </div>
   </div>
 
   <!-- CHARTS TAB -->
   <div class="tab-panel" id="tab-charts">
-    <div class="section-title"><span class="dot" style="background:var(--cyan)"></span> Visual Analysis</div>
-
-    <div class="chart-container">
-      <h3>Batter Ratings with 90% Bootstrap Confidence Intervals</h3>
-      <canvas id="chart-bat-ci" height="280"></canvas>
-    </div>
-
-    <div class="chart-container">
-      <h3>Bowler Ratings with 90% Bootstrap Confidence Intervals</h3>
-      <canvas id="chart-bowl-ci" height="280"></canvas>
-    </div>
-
-    <div class="chart-container">
-      <h3>High-Pressure Ball Percentage by Over</h3>
-      <canvas id="chart-pi-over" height="240"></canvas>
-    </div>
-
-    <div class="chart-container">
-      <h3>Batters: Strike Rate Under Pressure vs Normal</h3>
-      <canvas id="chart-bat-scatter" height="300"></canvas>
-    </div>
-
-    <div class="chart-container">
-      <h3>Bowlers: Economy Under Pressure vs Normal</h3>
-      <canvas id="chart-bowl-scatter" height="300"></canvas>
-    </div>
+    <div class="section-header">Visual Analysis</div>
+    <div class="chart-container"><h3>Batter Ratings with 90% Bootstrap CI</h3><canvas id="chart-bat-ci" height="280"></canvas></div>
+    <div class="chart-container"><h3>Bowler Ratings with 90% Bootstrap CI</h3><canvas id="chart-bowl-ci" height="280"></canvas></div>
+    <div class="chart-container"><h3>High-Pressure Ball % by Over</h3><canvas id="chart-pi-over" height="240"></canvas></div>
+    <div class="chart-container"><h3>Batters: Strike Rate Under Pressure vs Normal</h3><canvas id="chart-bat-scatter" height="300"></canvas></div>
+    <div class="chart-container"><h3>Bowlers: Economy Under Pressure vs Normal</h3><canvas id="chart-bowl-scatter" height="300"></canvas></div>
   </div>
 
   <!-- METHODOLOGY TAB -->
   <div class="tab-panel" id="tab-methodology">
-    <div class="section-title"><span class="dot" style="background:var(--purple)"></span> How It Works</div>
-
+    <div class="section-header">How It Works</div>
     <div class="callout">
       <h3>The Key Finding</h3>
       <p>"Clutch" &mdash; doing better than your own normal level under pressure &mdash; is <strong>not a repeatable skill</strong>. The split-half correlation is -0.04 (batting) and 0.03 (bowling). But <strong>quality that holds up under pressure IS real</strong>: the final rating has reliability of 0.32 (batting) and 0.20 (bowling). Some players genuinely maintain their standards when it matters. Others don't.</p>
     </div>
-
     <div class="method-grid">
-      <div class="method-card">
-        <h4><span class="method-num">1</span> Win Probability</h4>
-        <p>Monotone HistGradientBoosting trained out-of-fold (5-fold by match). Chase model AUC 0.896. First-innings uses a projected-total model with normal error. Every ball gets a win probability before and after.</p>
-      </div>
-      <div class="method-card">
-        <h4><span class="method-num">2</span> Pressure Index</h4>
-        <p>PI = Leverage Index &times; Momentum &times; Stakes. LI measures how much the win probability could swing. Momentum amplifies for recent wickets or dot balls. Knockout matches get a 1.2&times; boost. Top 25% are "high pressure" (PI &ge; 1.395).</p>
-      </div>
-      <div class="method-card">
-        <h4><span class="method-num">3</span> Expected Outcomes</h4>
-        <p>Machine learning models predict what an average player would do on each delivery given the exact situation. Runs Above Expected (RAE) = what you did minus what average would have done, adjusted for wicket value.</p>
-      </div>
-      <div class="method-card">
-        <h4><span class="method-num">4</span> Fair Comparisons</h4>
-        <p>Opposition quality weighted (full members 1.0, associates 0.60). Empirical-Bayes shrinkage prevents hot streaks from beating sustained excellence. Need &ge;150 high-pressure balls and &ge;20 matches to qualify.</p>
-      </div>
-      <div class="method-card">
-        <h4><span class="method-num">5</span> Composite Rating</h4>
-        <p>50% pressure-weighted RAE + 25% context-neutral WPA + 15% consistency + 10% clutch delta. Weights reflect each component's reliability. All z-scored among eligible players.</p>
-      </div>
-      <div class="method-card">
-        <h4><span class="method-num">6</span> Robustness</h4>
-        <p>300 match-level bootstrap resamples give confidence intervals. Split-half reliability confirms which signals are real. 15 sensitivity scenarios test alternative assumptions.</p>
-      </div>
+      <div class="method-card"><h4><span class="method-num">1</span> Win Probability</h4><p>Monotone HistGradientBoosting trained out-of-fold (5-fold by match). Chase model AUC 0.896. First-innings uses a projected-total model with normal error.</p></div>
+      <div class="method-card"><h4><span class="method-num">2</span> Pressure Index</h4><p>PI = Leverage Index &times; Momentum &times; Stakes. LI measures how much win probability could swing. Momentum amplifies for recent wickets or dots. Knockouts get 1.2&times; boost. Top 25% are "high pressure" (PI &ge; 1.395).</p></div>
+      <div class="method-card"><h4><span class="method-num">3</span> Expected Outcomes</h4><p>ML models predict what an average player would do on each delivery given the exact situation. RAE = what you did minus what average would have done, adjusted for wicket value.</p></div>
+      <div class="method-card"><h4><span class="method-num">4</span> Fair Comparisons</h4><p>Opposition quality weighted (full members 1.0, associates 0.60). Empirical-Bayes shrinkage prevents hot streaks from beating sustained excellence. &ge;150 HP balls + &ge;20 matches to qualify.</p></div>
+      <div class="method-card"><h4><span class="method-num">5</span> Composite Rating</h4><p>50% pressure-weighted RAE + 25% context-neutral WPA + 15% consistency + 10% clutch delta. Weights reflect each component's reliability. All z-scored.</p></div>
+      <div class="method-card"><h4><span class="method-num">6</span> Robustness</h4><p>300 match-level bootstrap resamples give confidence intervals. Split-half reliability confirms which signals are real. 15 sensitivity scenarios test alternative assumptions.</p></div>
     </div>
-
-    <div class="chart-container">
-      <h3>Rating Composite Weights</h3>
-      <canvas id="chart-weights" height="200"></canvas>
-    </div>
+    <div class="chart-container"><h3>Rating Composite Weights</h3><canvas id="chart-weights" height="200"></canvas></div>
   </div>
 
   <!-- RELIABILITY TAB -->
   <div class="tab-panel" id="tab-reliability">
-    <div class="section-title"><span class="dot" style="background:var(--amber)"></span> Split-Half Reliability</div>
-    <p style="color:var(--fg-secondary); font-size:13px; margin-bottom:20px;">
-      Each player's career is split into odd and even matches. These bars show how well each half predicts the other. Higher = more signal, lower = more noise.
+    <div class="section-header">Split-Half Reliability</div>
+    <p style="color:var(--fg-secondary); font-size:13px; margin-bottom:18px;">
+      Each player's career is split into odd and even matches. These bars show how well each half predicts the other.
     </p>
-    <div id="rel-bars" style="background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius); padding:16px 20px;"></div>
+    <div class="rel-wrap" id="rel-bars"></div>
   </div>
 
-  <div class="footer">
-    SupeRR Selector Season 2 &middot; Round 1 &middot; Data: 842 T20 matches (IPL + T20I), 2022&ndash;2026 &middot; Fully reproducible
-  </div>
+  <div class="footer">SupeRR Selector Season 2 &middot; Round 1 &middot; 842 T20 matches (IPL + T20I), 2022&ndash;2026 &middot; Fully reproducible</div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script>
-// ═══════ DATA ═══════
 const DATA = {
   bat: [
     {rank:1,name:"Vaibhav Sooryavanshi",rating:2.96,p_top10:91,hp_balls:244,matches:35,sr_pressure:232.0,sr_normal:218.3},
@@ -741,10 +694,10 @@ const DATA = {
     {rank:9,name:"Blessing Muzarabani",rating:1.26,p_top10:41,hp_balls:328,matches:42,econ_pressure:7.99,econ_normal:8.37},
     {rank:10,name:"Sunil Narine",rating:1.23,p_top10:36,hp_balls:396,matches:88,econ_pressure:7.20,econ_normal:7.07}
   ],
-  ci_bat: [{lo:1.19,hi:4.32},{lo:1.34,hi:3.13},{lo:0.63,hi:3.22},{lo:0.48,hi:3.03},{lo:0.65,hi:2.76},{lo:0.35,hi:3.01},{lo:-0.10,hi:2.89},{lo:0.09,hi:2.22},{lo:0.52,hi:1.70},{lo:-0.58,hi:2.50}],
-  ci_bowl: [{lo:1.11,hi:3.46},{lo:0.69,hi:3.37},{lo:0.71,hi:3.09},{lo:0.78,hi:2.89},{lo:0.74,hi:2.85},{lo:0.33,hi:2.73},{lo:0.44,hi:2.37},{lo:0.16,hi:2.57},{lo:0.21,hi:2.42},{lo:0.37,hi:2.04}],
-  pi_by_over: {1:37.7,2:38.2,3:37.9,4:34.4,5:33.3,6:33.0,7:22.6,8:20.5,9:20.5,10:20.3,11:18.4,12:18.0,13:17.4,14:17.4,15:17.4,16:23.4,17:21.3,18:19.9,19:20.5,20:23.6},
-  rel: [
+  ci_bat:[{lo:1.19,hi:4.32},{lo:1.34,hi:3.13},{lo:0.63,hi:3.22},{lo:0.48,hi:3.03},{lo:0.65,hi:2.76},{lo:0.35,hi:3.01},{lo:-0.10,hi:2.89},{lo:0.09,hi:2.22},{lo:0.52,hi:1.70},{lo:-0.58,hi:2.50}],
+  ci_bowl:[{lo:1.11,hi:3.46},{lo:0.69,hi:3.37},{lo:0.71,hi:3.09},{lo:0.78,hi:2.89},{lo:0.74,hi:2.85},{lo:0.33,hi:2.73},{lo:0.44,hi:2.37},{lo:0.16,hi:2.57},{lo:0.21,hi:2.42},{lo:0.37,hi:2.04}],
+  pi_by_over:{1:37.7,2:38.2,3:37.9,4:34.4,5:33.3,6:33.0,7:22.6,8:20.5,9:20.5,10:20.3,11:18.4,12:18.0,13:17.4,14:17.4,15:17.4,16:23.4,17:21.3,18:19.9,19:20.5,20:23.6},
+  rel:[
     {component:"Runs vs Expected",batting:0.47,bowling:0.13},
     {component:"Wicket Component",batting:0.21,bowling:0.12},
     {component:"cWPA",batting:0.21,bowling:0.06},
@@ -752,7 +705,7 @@ const DATA = {
     {component:"Clutch Delta",batting:-0.04,bowling:0.03},
     {component:"Final Rating",batting:0.32,bowling:0.20}
   ],
-  bat30: [
+  bat30:[
     {rank:1,name:"Vaibhav Sooryavanshi",rating:2.96,p_top10:91,hp_balls:244,matches:35,sr_pressure:232.0,sr_normal:218.3},
     {rank:2,name:"Suryakumar Yadav",rating:2.30,p_top10:93,hp_balls:650,matches:137,sr_pressure:161.5,sr_normal:168.0},
     {rank:3,name:"Abhishek Sharma",rating:1.96,p_top10:74,hp_balls:677,matches:130,sr_pressure:179.3,sr_normal:190.0},
@@ -769,7 +722,7 @@ const DATA = {
     {rank:14,name:"David Warner",rating:0.90,p_top10:14,hp_balls:240,matches:35,sr_pressure:158.3,sr_normal:150.8},
     {rank:15,name:"KL Rahul",rating:0.86,p_top10:13,hp_balls:371,matches:65,sr_pressure:138.0,sr_normal:135.6}
   ],
-  bowl30: [
+  bowl30:[
     {rank:1,name:"Kuldeep Yadav",rating:2.35,p_top10:89,hp_balls:431,matches:88,econ_pressure:7.56,econ_normal:8.09},
     {rank:2,name:"Josh Hazlewood",rating:2.05,p_top10:75,hp_balls:477,matches:63,econ_pressure:8.05,econ_normal:8.31},
     {rank:3,name:"Jasprit Bumrah",rating:1.89,p_top10:71,hp_balls:521,matches:75,econ_pressure:7.35,econ_normal:7.10},
@@ -788,28 +741,17 @@ const DATA = {
   ]
 };
 
-// ═══════ THEME DETECTION ═══════
-function getTheme() {
-  const dt = document.documentElement.getAttribute('data-theme');
-  if (dt === 'dark') return 'dark';
-  if (dt === 'light') return 'light';
-  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-}
-function getCSSVar(name) {
-  return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
-}
-
-// ═══════ TABS ═══════
-document.querySelectorAll('.tab-btn').forEach(btn => {
+// Tabs
+document.querySelectorAll('.nav-tab').forEach(btn => {
   btn.addEventListener('click', () => {
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
     document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
     btn.classList.add('active');
     document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
   });
 });
 
-// ═══════ VIEW TOGGLES ═══════
+// View toggles
 document.querySelectorAll('.view-toggle').forEach(group => {
   const target = group.dataset.target;
   group.querySelectorAll('button').forEach(btn => {
@@ -823,7 +765,6 @@ document.querySelectorAll('.view-toggle').forEach(group => {
   });
 });
 
-// ═══════ RENDER PLAYER CARDS ═══════
 function rankClass(r) {
   if (r === 1) return 'rank-gold';
   if (r === 2) return 'rank-silver';
@@ -831,384 +772,153 @@ function rankClass(r) {
   return 'rank-default';
 }
 
-function renderBatCards() {
-  const el = document.getElementById('bat-cards');
-  el.innerHTML = DATA.bat.map(p => `
+function renderCards(elId, data, statKey) {
+  const isBat = statKey === 'sr';
+  document.getElementById(elId).innerHTML = data.map(p => `
     <div class="player-card">
       <div class="player-rank ${rankClass(p.rank)}">${p.rank}</div>
       <div class="player-info">
         <div class="player-name">${p.name}</div>
         <div class="player-meta">
           <span>${p.hp_balls} HP balls</span>
-          <span>${p.matches} matches</span>
-          <span>SR: ${p.sr_pressure} / ${p.sr_normal}</span>
+          <span>${p.matches} mat</span>
+          <span>${isBat ? 'SR' : 'Econ'}: ${isBat ? p.sr_pressure + ' / ' + p.sr_normal : p.econ_pressure + ' / ' + p.econ_normal}</span>
         </div>
       </div>
       <div class="player-rating-box">
         <div class="player-rating-num">${p.rating.toFixed(2)}</div>
-        <div class="player-confidence">
-          <span class="conf-bar"><span class="conf-fill" style="width:${p.p_top10}%"></span></span>${p.p_top10}%
-        </div>
+        <div class="player-confidence"><span class="conf-bar"><span class="conf-fill" style="width:${p.p_top10}%"></span></span>${p.p_top10}%</div>
       </div>
-    </div>
-  `).join('');
+    </div>`).join('');
 }
 
-function renderBowlCards() {
-  const el = document.getElementById('bowl-cards');
-  el.innerHTML = DATA.bowl.map(p => `
-    <div class="player-card">
-      <div class="player-rank ${rankClass(p.rank)}">${p.rank}</div>
-      <div class="player-info">
-        <div class="player-name">${p.name}</div>
-        <div class="player-meta">
-          <span>${p.hp_balls} HP balls</span>
-          <span>${p.matches} matches</span>
-          <span>Econ: ${p.econ_pressure} / ${p.econ_normal}</span>
-        </div>
-      </div>
-      <div class="player-rating-box">
-        <div class="player-rating-num">${p.rating.toFixed(2)}</div>
-        <div class="player-confidence">
-          <span class="conf-bar"><span class="conf-fill" style="width:${p.p_top10}%"></span></span>${p.p_top10}%
-        </div>
-      </div>
-    </div>
-  `).join('');
-}
-
-// ═══════ RENDER TABLES ═══════
-function renderBatTable() {
-  document.getElementById('bat-tbody').innerHTML = DATA.bat.map((p,i) => `
+function renderTable(tbodyId, data, ci, isBat) {
+  document.getElementById(tbodyId).innerHTML = data.map((p,i) => `
     <tr class="${i<3?'top-3':''}">
       <td>${p.rank}</td><td>${p.name}</td>
       <td class="num">${p.rating.toFixed(2)}</td><td class="num">${p.p_top10}%</td>
       <td class="num">${p.hp_balls}</td><td class="num">${p.matches}</td>
-      <td class="num">${p.sr_pressure}</td><td class="num">${p.sr_normal}</td>
-      <td class="num">${DATA.ci_bat[i].lo.toFixed(2)} &ndash; ${DATA.ci_bat[i].hi.toFixed(2)}</td>
-    </tr>`).join('');
-}
-function renderBowlTable() {
-  document.getElementById('bowl-tbody').innerHTML = DATA.bowl.map((p,i) => `
-    <tr class="${i<3?'top-3':''}">
-      <td>${p.rank}</td><td>${p.name}</td>
-      <td class="num">${p.rating.toFixed(2)}</td><td class="num">${p.p_top10}%</td>
-      <td class="num">${p.hp_balls}</td><td class="num">${p.matches}</td>
-      <td class="num">${p.econ_pressure}</td><td class="num">${p.econ_normal}</td>
-      <td class="num">${DATA.ci_bowl[i].lo.toFixed(2)} &ndash; ${DATA.ci_bowl[i].hi.toFixed(2)}</td>
+      <td class="num">${isBat ? p.sr_pressure : p.econ_pressure}</td>
+      <td class="num">${isBat ? p.sr_normal : p.econ_normal}</td>
+      ${ci ? `<td class="num">${ci[i].lo.toFixed(2)} &ndash; ${ci[i].hi.toFixed(2)}</td>` : ''}
     </tr>`).join('');
 }
 
-function renderBat30() {
-  document.getElementById('bat30-tbody').innerHTML = DATA.bat30.map((p,i) => `
+function renderExtended(tbodyId, data, isBat) {
+  document.getElementById(tbodyId).innerHTML = data.map((p,i) => `
     <tr class="${i<3?'top-3':''}">
       <td>${p.rank}</td><td>${p.name}</td>
       <td class="num">${p.rating.toFixed(2)}</td><td class="num">${p.p_top10}%</td>
       <td class="num">${p.hp_balls}</td><td class="num">${p.matches}</td>
-      <td class="num">${p.sr_pressure}</td><td class="num">${p.sr_normal}</td>
-    </tr>`).join('');
-}
-function renderBowl30() {
-  document.getElementById('bowl30-tbody').innerHTML = DATA.bowl30.map((p,i) => `
-    <tr class="${i<3?'top-3':''}">
-      <td>${p.rank}</td><td>${p.name}</td>
-      <td class="num">${p.rating.toFixed(2)}</td><td class="num">${p.p_top10}%</td>
-      <td class="num">${p.hp_balls}</td><td class="num">${p.matches}</td>
-      <td class="num">${p.econ_pressure}</td><td class="num">${p.econ_normal}</td>
+      <td class="num">${isBat ? p.sr_pressure : p.econ_pressure}</td>
+      <td class="num">${isBat ? p.sr_normal : p.econ_normal}</td>
     </tr>`).join('');
 }
 
-// ═══════ RELIABILITY BARS ═══════
+function getCSSVar(n) { return getComputedStyle(document.documentElement).getPropertyValue(n).trim(); }
+
 function renderRelBars() {
-  const el = document.getElementById('rel-bars');
-  el.innerHTML = DATA.rel.map(r => {
+  document.getElementById('rel-bars').innerHTML = DATA.rel.map(r => {
     const batW = Math.max(0, r.batting) * 200;
     const bowlW = Math.max(0, r.bowling) * 200;
-    const batColor = r.component === 'Final Rating' ? getCSSVar('--accent') :
-                     r.batting < 0.05 ? getCSSVar('--red') :
-                     r.batting < 0.15 ? getCSSVar('--amber') : getCSSVar('--green');
-    const bowlColor = r.component === 'Final Rating' ? getCSSVar('--accent') :
-                      r.bowling < 0.05 ? getCSSVar('--red') :
-                      r.bowling < 0.15 ? getCSSVar('--amber') : getCSSVar('--green');
+    const batC = r.component==='Final Rating' ? getCSSVar('--accent') : r.batting<0.05 ? getCSSVar('--red') : r.batting<0.15 ? getCSSVar('--amber') : getCSSVar('--green');
+    const bowlC = r.component==='Final Rating' ? getCSSVar('--accent') : r.bowling<0.05 ? getCSSVar('--red') : r.bowling<0.15 ? getCSSVar('--amber') : getCSSVar('--green');
     const isFinal = r.component === 'Final Rating';
-    return `
-      <div class="rel-row" style="${isFinal ? 'padding-top:12px;margin-top:4px;border-top:2px solid var(--accent);font-weight:600' : ''}">
-        <div class="rel-label">${r.component}</div>
-        <div class="rel-bars">
-          <div class="rel-bar-wrap">
-            <div class="rel-bar-label">Batting</div>
-            <div class="rel-bar-track"><div class="rel-bar-fill" style="width:${batW}%;background:${batColor}"></div></div>
-          </div>
-          <div class="rel-bar-val" style="color:${batColor}">${r.batting.toFixed(2)}</div>
-          <div class="rel-bar-wrap">
-            <div class="rel-bar-label">Bowling</div>
-            <div class="rel-bar-track"><div class="rel-bar-fill" style="width:${bowlW}%;background:${bowlColor}"></div></div>
-          </div>
-          <div class="rel-bar-val" style="color:${bowlColor}">${r.bowling.toFixed(2)}</div>
-        </div>
-      </div>`;
+    return `<div class="rel-row" style="${isFinal?'padding-top:14px;margin-top:4px;border-top:2px solid var(--accent);font-weight:700':''}">
+      <div class="rel-label">${r.component}</div>
+      <div class="rel-bars">
+        <div class="rel-bar-wrap"><div class="rel-bar-label">Batting</div><div class="rel-bar-track"><div class="rel-bar-fill" style="width:${batW}%;background:${batC}"></div></div></div>
+        <div class="rel-bar-val" style="color:${batC}">${r.batting.toFixed(2)}</div>
+        <div class="rel-bar-wrap"><div class="rel-bar-label">Bowling</div><div class="rel-bar-track"><div class="rel-bar-fill" style="width:${bowlW}%;background:${bowlC}"></div></div></div>
+        <div class="rel-bar-val" style="color:${bowlC}">${r.bowling.toFixed(2)}</div>
+      </div>
+    </div>`;
   }).join('');
 }
 
-// ═══════ CHARTS ═══════
-const chartDefaults = {
-  responsive: true,
-  maintainAspectRatio: false,
-  plugins: { legend: { display: false } }
-};
-
 function makeCharts() {
-  const theme = getTheme();
-  const fg = theme === 'dark' ? '#8B93A7' : '#6B7280';
-  const grid = theme === 'dark' ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)';
-  const accent = theme === 'dark' ? '#3B82F6' : '#2563EB';
-  const green = theme === 'dark' ? '#22C55E' : '#16A34A';
-  const cyan = theme === 'dark' ? '#06B6D4' : '#0891B2';
-  const purple = theme === 'dark' ? '#A855F7' : '#9333EA';
-  const amber = theme === 'dark' ? '#F59E0B' : '#D97706';
+  const accent = getCSSVar('--accent') || '#2167E8';
+  const green = getCSSVar('--green') || '#16A34A';
+  const amber = getCSSVar('--amber') || '#D97706';
+  const cyan = getCSSVar('--cyan') || '#0891B2';
+  const purple = getCSSVar('--purple') || '#7C3AED';
+  const fg = getCSSVar('--fg-muted') || '#94A3B8';
+  const grid = getCSSVar('--border') || '#E2E8F0';
 
   Chart.defaults.color = fg;
   Chart.defaults.borderColor = grid;
+  const noLegend = { plugins: { legend: { display: false } } };
 
-  // Batter CI chart
+  // Bat CI
   new Chart(document.getElementById('chart-bat-ci'), {
-    type: 'bar',
-    data: {
+    type:'bar', data:{
       labels: DATA.bat.map(p => p.name.split(' ').pop()),
-      datasets: [
-        {
-          label: 'CI Low',
-          data: DATA.ci_bat.map(c => c.lo),
-          backgroundColor: 'transparent',
-          borderWidth: 0
-        },
-        {
-          label: 'Rating',
-          data: DATA.bat.map((p,i) => p.rating - DATA.ci_bat[i].lo),
-          backgroundColor: accent + '99',
-          borderColor: accent,
-          borderWidth: 1,
-          borderRadius: { topLeft: 4, topRight: 4 },
-          barPercentage: 0.6
-        },
-        {
-          label: 'CI Range',
-          data: DATA.bat.map((p,i) => DATA.ci_bat[i].hi - p.rating),
-          backgroundColor: accent + '33',
-          borderColor: accent + '66',
-          borderWidth: 1,
-          borderRadius: { topLeft: 4, topRight: 4 },
-          barPercentage: 0.6
-        }
-      ]
-    },
-    options: {
-      ...chartDefaults,
-      scales: {
-        x: { stacked: true, grid: { display: false } },
-        y: { stacked: true, title: { display: true, text: 'Rating', color: fg }, grid: { color: grid } }
-      },
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          callbacks: {
-            label: (ctx) => {
-              const i = ctx.dataIndex;
-              const p = DATA.bat[i];
-              return `${p.name}: ${p.rating.toFixed(2)} [${DATA.ci_bat[i].lo.toFixed(2)}, ${DATA.ci_bat[i].hi.toFixed(2)}]`;
-            }
-          }
-        }
-      }
-    }
+      datasets:[
+        {data:DATA.ci_bat.map(c=>c.lo),backgroundColor:'transparent',borderWidth:0},
+        {data:DATA.bat.map((p,i)=>p.rating-DATA.ci_bat[i].lo),backgroundColor:accent+'99',borderColor:accent,borderWidth:1,borderRadius:{topLeft:4,topRight:4},barPercentage:0.6},
+        {data:DATA.bat.map((p,i)=>DATA.ci_bat[i].hi-p.rating),backgroundColor:accent+'33',borderColor:accent+'66',borderWidth:1,borderRadius:{topLeft:4,topRight:4},barPercentage:0.6}
+      ]},
+    options:{responsive:true,maintainAspectRatio:false,...noLegend,
+      scales:{x:{stacked:true,grid:{display:false}},y:{stacked:true,title:{display:true,text:'Rating',color:fg},grid:{color:grid}}},
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>{const i=ctx.dataIndex,p=DATA.bat[i];return `${p.name}: ${p.rating.toFixed(2)} [${DATA.ci_bat[i].lo.toFixed(2)}, ${DATA.ci_bat[i].hi.toFixed(2)}]`}}}}}
   });
 
-  // Bowler CI chart
+  // Bowl CI
   new Chart(document.getElementById('chart-bowl-ci'), {
-    type: 'bar',
-    data: {
+    type:'bar', data:{
       labels: DATA.bowl.map(p => p.name.split(' ').pop()),
-      datasets: [
-        { label: 'CI Low', data: DATA.ci_bowl.map(c => c.lo), backgroundColor: 'transparent', borderWidth: 0 },
-        { label: 'Rating', data: DATA.bowl.map((p,i) => p.rating - DATA.ci_bowl[i].lo), backgroundColor: green + '99', borderColor: green, borderWidth: 1, borderRadius: { topLeft: 4, topRight: 4 }, barPercentage: 0.6 },
-        { label: 'CI Range', data: DATA.bowl.map((p,i) => DATA.ci_bowl[i].hi - p.rating), backgroundColor: green + '33', borderColor: green + '66', borderWidth: 1, borderRadius: { topLeft: 4, topRight: 4 }, barPercentage: 0.6 }
-      ]
-    },
-    options: {
-      ...chartDefaults,
-      scales: {
-        x: { stacked: true, grid: { display: false } },
-        y: { stacked: true, title: { display: true, text: 'Rating', color: fg }, grid: { color: grid } }
-      },
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          callbacks: {
-            label: (ctx) => {
-              const i = ctx.dataIndex;
-              const p = DATA.bowl[i];
-              return `${p.name}: ${p.rating.toFixed(2)} [${DATA.ci_bowl[i].lo.toFixed(2)}, ${DATA.ci_bowl[i].hi.toFixed(2)}]`;
-            }
-          }
-        }
-      }
-    }
+      datasets:[
+        {data:DATA.ci_bowl.map(c=>c.lo),backgroundColor:'transparent',borderWidth:0},
+        {data:DATA.bowl.map((p,i)=>p.rating-DATA.ci_bowl[i].lo),backgroundColor:green+'99',borderColor:green,borderWidth:1,borderRadius:{topLeft:4,topRight:4},barPercentage:0.6},
+        {data:DATA.bowl.map((p,i)=>DATA.ci_bowl[i].hi-p.rating),backgroundColor:green+'33',borderColor:green+'66',borderWidth:1,borderRadius:{topLeft:4,topRight:4},barPercentage:0.6}
+      ]},
+    options:{responsive:true,maintainAspectRatio:false,...noLegend,
+      scales:{x:{stacked:true,grid:{display:false}},y:{stacked:true,title:{display:true,text:'Rating',color:fg},grid:{color:grid}}},
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>{const i=ctx.dataIndex,p=DATA.bowl[i];return `${p.name}: ${p.rating.toFixed(2)} [${DATA.ci_bowl[i].lo.toFixed(2)}, ${DATA.ci_bowl[i].hi.toFixed(2)}]`}}}}}
   });
 
   // PI by over
-  const overs = Object.keys(DATA.pi_by_over).map(Number);
-  const piVals = overs.map(o => DATA.pi_by_over[o]);
+  const overs=Object.keys(DATA.pi_by_over).map(Number), piVals=overs.map(o=>DATA.pi_by_over[o]);
   new Chart(document.getElementById('chart-pi-over'), {
-    type: 'bar',
-    data: {
-      labels: overs,
-      datasets: [{
-        data: piVals,
-        backgroundColor: piVals.map(v => v > 30 ? amber + 'CC' : v > 20 ? cyan + '99' : purple + '66'),
-        borderRadius: 4,
-        barPercentage: 0.7
-      }]
-    },
-    options: {
-      ...chartDefaults,
-      scales: {
-        x: { title: { display: true, text: 'Over', color: fg }, grid: { display: false } },
-        y: { title: { display: true, text: '% High-Pressure Balls', color: fg }, grid: { color: grid }, beginAtZero: true, max: 50 }
-      },
-      plugins: {
-        legend: { display: false },
-        tooltip: { callbacks: { label: ctx => `${ctx.parsed.y}% high-pressure balls` } }
-      }
-    }
+    type:'bar', data:{labels:overs,datasets:[{data:piVals,backgroundColor:piVals.map(v=>v>30?amber+'CC':v>20?accent+'88':purple+'66'),borderRadius:4,barPercentage:0.7}]},
+    options:{responsive:true,maintainAspectRatio:false,...noLegend,
+      scales:{x:{title:{display:true,text:'Over',color:fg},grid:{display:false}},y:{title:{display:true,text:'% High-Pressure Balls',color:fg},grid:{color:grid},beginAtZero:true,max:50}},
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>`${ctx.parsed.y}% high-pressure balls`}}}}
   });
 
-  // Bat scatter: SR pressure vs normal
+  // Bat scatter
   new Chart(document.getElementById('chart-bat-scatter'), {
-    type: 'scatter',
-    data: {
-      datasets: [{
-        data: DATA.bat.map(p => ({ x: p.sr_normal, y: p.sr_pressure, name: p.name })),
-        backgroundColor: accent + 'CC',
-        borderColor: accent,
-        borderWidth: 1.5,
-        pointRadius: 7,
-        pointHoverRadius: 10
-      }]
-    },
-    options: {
-      ...chartDefaults,
-      scales: {
-        x: { title: { display: true, text: 'Strike Rate (Normal)', color: fg }, grid: { color: grid }, min: 110, max: 240 },
-        y: { title: { display: true, text: 'Strike Rate (Pressure)', color: fg }, grid: { color: grid }, min: 110, max: 240 }
-      },
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          callbacks: {
-            label: ctx => `${ctx.raw.name}: ${ctx.raw.y} (P) / ${ctx.raw.x} (N)`
-          }
-        }
-      }
-    },
-    plugins: [{
-      afterDraw(chart) {
-        const { ctx: c, scales: { x, y } } = chart;
-        const minV = Math.max(x.min, y.min);
-        const maxV = Math.min(x.max, y.max);
-        c.save();
-        c.setLineDash([6, 4]);
-        c.strokeStyle = fg;
-        c.lineWidth = 1;
-        c.globalAlpha = 0.4;
-        c.beginPath();
-        c.moveTo(x.getPixelForValue(minV), y.getPixelForValue(minV));
-        c.lineTo(x.getPixelForValue(maxV), y.getPixelForValue(maxV));
-        c.stroke();
-        c.restore();
-      }
-    }]
+    type:'scatter', data:{datasets:[{data:DATA.bat.map(p=>({x:p.sr_normal,y:p.sr_pressure,name:p.name})),backgroundColor:accent+'CC',borderColor:accent,borderWidth:1.5,pointRadius:7,pointHoverRadius:10}]},
+    options:{responsive:true,maintainAspectRatio:false,...noLegend,
+      scales:{x:{title:{display:true,text:'SR (Normal)',color:fg},grid:{color:grid},min:110,max:240},y:{title:{display:true,text:'SR (Pressure)',color:fg},grid:{color:grid},min:110,max:240}},
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>`${ctx.raw.name}: ${ctx.raw.y} (P) / ${ctx.raw.x} (N)`}}}},
+    plugins:[{afterDraw(ch){const{ctx:c,scales:{x,y}}=ch;c.save();c.setLineDash([6,4]);c.strokeStyle=fg;c.lineWidth=1;c.globalAlpha=0.4;c.beginPath();c.moveTo(x.getPixelForValue(110),y.getPixelForValue(110));c.lineTo(x.getPixelForValue(240),y.getPixelForValue(240));c.stroke();c.restore()}}]
   });
 
-  // Bowl scatter: Econ pressure vs normal
+  // Bowl scatter
   new Chart(document.getElementById('chart-bowl-scatter'), {
-    type: 'scatter',
-    data: {
-      datasets: [{
-        data: DATA.bowl.map(p => ({ x: p.econ_normal, y: p.econ_pressure, name: p.name })),
-        backgroundColor: green + 'CC',
-        borderColor: green,
-        borderWidth: 1.5,
-        pointRadius: 7,
-        pointHoverRadius: 10
-      }]
-    },
-    options: {
-      ...chartDefaults,
-      scales: {
-        x: { title: { display: true, text: 'Economy (Normal)', color: fg }, grid: { color: grid }, min: 6.5, max: 10, reverse: true },
-        y: { title: { display: true, text: 'Economy (Pressure)', color: fg }, grid: { color: grid }, min: 6.5, max: 10, reverse: true }
-      },
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          callbacks: {
-            label: ctx => `${ctx.raw.name}: ${ctx.raw.y} (P) / ${ctx.raw.x} (N)`
-          }
-        }
-      }
-    },
-    plugins: [{
-      afterDraw(chart) {
-        const { ctx: c, scales: { x, y } } = chart;
-        c.save();
-        c.setLineDash([6, 4]);
-        c.strokeStyle = fg;
-        c.lineWidth = 1;
-        c.globalAlpha = 0.4;
-        c.beginPath();
-        c.moveTo(x.getPixelForValue(6.5), y.getPixelForValue(6.5));
-        c.lineTo(x.getPixelForValue(10), y.getPixelForValue(10));
-        c.stroke();
-        c.restore();
-      }
-    }]
+    type:'scatter', data:{datasets:[{data:DATA.bowl.map(p=>({x:p.econ_normal,y:p.econ_pressure,name:p.name})),backgroundColor:green+'CC',borderColor:green,borderWidth:1.5,pointRadius:7,pointHoverRadius:10}]},
+    options:{responsive:true,maintainAspectRatio:false,...noLegend,
+      scales:{x:{title:{display:true,text:'Econ (Normal)',color:fg},grid:{color:grid},min:6.5,max:10,reverse:true},y:{title:{display:true,text:'Econ (Pressure)',color:fg},grid:{color:grid},min:6.5,max:10,reverse:true}},
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>`${ctx.raw.name}: ${ctx.raw.y} (P) / ${ctx.raw.x} (N)`}}}},
+    plugins:[{afterDraw(ch){const{ctx:c,scales:{x,y}}=ch;c.save();c.setLineDash([6,4]);c.strokeStyle=fg;c.lineWidth=1;c.globalAlpha=0.4;c.beginPath();c.moveTo(x.getPixelForValue(6.5),y.getPixelForValue(6.5));c.lineTo(x.getPixelForValue(10),y.getPixelForValue(10));c.stroke();c.restore()}}]
   });
 
   // Weights donut
+  const bg = getCSSVar('--bg-card') || '#fff';
   new Chart(document.getElementById('chart-weights'), {
-    type: 'doughnut',
-    data: {
-      labels: ['PW-RAE (50%)', 'cWPA (25%)', 'Consistency (15%)', 'Clutch Delta (10%)'],
-      datasets: [{
-        data: [50, 25, 15, 10],
-        backgroundColor: [accent, green, amber, purple],
-        borderWidth: 2,
-        borderColor: theme === 'dark' ? '#131829' : '#FFFFFF',
-        hoverOffset: 6
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      cutout: '55%',
-      plugins: {
-        legend: {
-          display: true,
-          position: 'right',
-          labels: { padding: 16, usePointStyle: true, pointStyle: 'rectRounded', font: { size: 12 } }
-        }
-      }
-    }
+    type:'doughnut', data:{labels:['PW-RAE (50%)','cWPA (25%)','Consistency (15%)','Clutch Delta (10%)'],datasets:[{data:[50,25,15,10],backgroundColor:[accent,green,amber,purple],borderWidth:2,borderColor:bg,hoverOffset:6}]},
+    options:{responsive:true,maintainAspectRatio:false,cutout:'55%',plugins:{legend:{display:true,position:'right',labels:{padding:16,usePointStyle:true,pointStyle:'rectRounded',font:{size:12}}}}}
   });
 }
 
-// ═══════ INIT ═══════
-renderBatCards();
-renderBowlCards();
-renderBatTable();
-renderBowlTable();
-renderBat30();
-renderBowl30();
+// Init
+renderCards('bat-cards', DATA.bat, 'sr');
+renderCards('bowl-cards', DATA.bowl, 'econ');
+renderTable('bat-tbody', DATA.bat, DATA.ci_bat, true);
+renderTable('bowl-tbody', DATA.bowl, DATA.ci_bowl, false);
+renderExtended('bat30-tbody', DATA.bat30, true);
+renderExtended('bowl30-tbody', DATA.bowl30, false);
 renderRelBars();
 makeCharts();
 </script>
