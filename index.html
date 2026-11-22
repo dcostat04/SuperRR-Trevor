@@ -401,26 +401,31 @@ tbody tr:hover { background: var(--bg-card-hover); }
 /* ═══ CHARTS (white card) ═══ */
 .chart-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
 }
 .chart-container {
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 16px;
+  padding: 12px 14px;
   box-shadow: var(--shadow);
+  min-width: 0;
 }
+.chart-container.wide { grid-column: 1 / -1; }
 .chart-container h3 {
   font-size: 13px;
   font-weight: 700;
-  margin-bottom: 10px;
+  margin-bottom: 6px;
   color: var(--fg);
 }
+/* Fixed-height box: Chart.js sizes to this, so charts can't grow without limit */
+.chart-box { position: relative; height: 240px; width: 100%; }
+.chart-box.short { height: 180px; }
 @media (max-width: 700px) {
   .chart-grid { grid-template-columns: 1fr; }
+  .chart-box { height: 220px; }
 }
-canvas { width: 100% !important; }
 
 
 /* ═══ RELIABILITY BARS ═══ */
@@ -596,12 +601,12 @@ canvas { width: 100% !important; }
   <div class="tab-panel" id="tab-charts">
     <div class="section-header">Visual Analysis</div>
     <div class="chart-grid">
-      <div class="chart-container"><h3>Batter Ratings (90% CI)</h3><canvas id="chart-bat-ci" height="180"></canvas></div>
-      <div class="chart-container"><h3>Bowler Ratings (90% CI)</h3><canvas id="chart-bowl-ci" height="180"></canvas></div>
-      <div class="chart-container"><h3>Batters: SR Pressure vs Normal</h3><canvas id="chart-bat-scatter" height="200"></canvas></div>
-      <div class="chart-container"><h3>Bowlers: Econ Pressure vs Normal</h3><canvas id="chart-bowl-scatter" height="200"></canvas></div>
+      <div class="chart-container"><h3>Batter Ratings (90% CI)</h3><div class="chart-box"><canvas id="chart-bat-ci"></canvas></div></div>
+      <div class="chart-container"><h3>Bowler Ratings (90% CI)</h3><div class="chart-box"><canvas id="chart-bowl-ci"></canvas></div></div>
+      <div class="chart-container"><h3>Batters: SR Pressure vs Normal</h3><div class="chart-box"><canvas id="chart-bat-scatter"></canvas></div></div>
+      <div class="chart-container"><h3>Bowlers: Econ Pressure vs Normal</h3><div class="chart-box"><canvas id="chart-bowl-scatter"></canvas></div></div>
+      <div class="chart-container wide"><h3>High-Pressure Ball % by Over</h3><div class="chart-box short"><canvas id="chart-pi-over"></canvas></div></div>
     </div>
-    <div class="chart-container" style="margin-top:14px"><h3>High-Pressure Ball % by Over</h3><canvas id="chart-pi-over" height="150"></canvas></div>
   </div>
 
 
@@ -804,13 +809,12 @@ function makeCharts() {
     type:'bar', data:{
       labels: DATA.bat.map(p => p.name.split(' ').pop()),
       datasets:[
-        {data:DATA.ci_bat.map(c=>c.lo),backgroundColor:'transparent',borderWidth:0},
-        {data:DATA.bat.map((p,i)=>p.rating-DATA.ci_bat[i].lo),backgroundColor:accent+'99',borderColor:accent,borderWidth:1,borderRadius:{topLeft:4,topRight:4},barPercentage:0.6},
-        {data:DATA.bat.map((p,i)=>DATA.ci_bat[i].hi-p.rating),backgroundColor:accent+'33',borderColor:accent+'66',borderWidth:1,borderRadius:{topLeft:4,topRight:4},barPercentage:0.6}
+        {data:DATA.bat.map((p,i)=>[DATA.ci_bat[i].lo,p.rating]),backgroundColor:accent+'99',borderColor:accent,borderWidth:1,borderSkipped:false,barPercentage:0.6},
+        {data:DATA.bat.map((p,i)=>[p.rating,DATA.ci_bat[i].hi]),backgroundColor:accent+'33',borderColor:accent+'66',borderWidth:1,borderSkipped:false,barPercentage:0.6}
       ]},
     options:{responsive:true,maintainAspectRatio:false,...noLegend,
-      scales:{x:{stacked:true,grid:{display:false}},y:{stacked:true,title:{display:true,text:'Rating',color:fg},grid:{color:grid}}},
-      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>{const i=ctx.dataIndex,p=DATA.bat[i];return `${p.name}: ${p.rating.toFixed(2)} [${DATA.ci_bat[i].lo.toFixed(2)}, ${DATA.ci_bat[i].hi.toFixed(2)}]`}}}}}
+      scales:{x:{stacked:true,grid:{display:false}},y:{stacked:false,title:{display:true,text:'Rating',color:fg},grid:{color:grid}}},
+      plugins:{legend:{display:false},tooltip:{filter:it=>it.datasetIndex===0,callbacks:{label:ctx=>{const i=ctx.dataIndex,p=DATA.bat[i];return `${p.name}: ${p.rating.toFixed(2)} [${DATA.ci_bat[i].lo.toFixed(2)}, ${DATA.ci_bat[i].hi.toFixed(2)}]`}}}}}
   });
 
   // Bowl CI
@@ -818,13 +822,12 @@ function makeCharts() {
     type:'bar', data:{
       labels: DATA.bowl.map(p => p.name.split(' ').pop()),
       datasets:[
-        {data:DATA.ci_bowl.map(c=>c.lo),backgroundColor:'transparent',borderWidth:0},
-        {data:DATA.bowl.map((p,i)=>p.rating-DATA.ci_bowl[i].lo),backgroundColor:green+'99',borderColor:green,borderWidth:1,borderRadius:{topLeft:4,topRight:4},barPercentage:0.6},
-        {data:DATA.bowl.map((p,i)=>DATA.ci_bowl[i].hi-p.rating),backgroundColor:green+'33',borderColor:green+'66',borderWidth:1,borderRadius:{topLeft:4,topRight:4},barPercentage:0.6}
+        {data:DATA.bowl.map((p,i)=>[DATA.ci_bowl[i].lo,p.rating]),backgroundColor:green+'99',borderColor:green,borderWidth:1,borderSkipped:false,barPercentage:0.6},
+        {data:DATA.bowl.map((p,i)=>[p.rating,DATA.ci_bowl[i].hi]),backgroundColor:green+'33',borderColor:green+'66',borderWidth:1,borderSkipped:false,barPercentage:0.6}
       ]},
     options:{responsive:true,maintainAspectRatio:false,...noLegend,
-      scales:{x:{stacked:true,grid:{display:false}},y:{stacked:true,title:{display:true,text:'Rating',color:fg},grid:{color:grid}}},
-      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>{const i=ctx.dataIndex,p=DATA.bowl[i];return `${p.name}: ${p.rating.toFixed(2)} [${DATA.ci_bowl[i].lo.toFixed(2)}, ${DATA.ci_bowl[i].hi.toFixed(2)}]`}}}}}
+      scales:{x:{stacked:true,grid:{display:false}},y:{stacked:false,title:{display:true,text:'Rating',color:fg},grid:{color:grid}}},
+      plugins:{legend:{display:false},tooltip:{filter:it=>it.datasetIndex===0,callbacks:{label:ctx=>{const i=ctx.dataIndex,p=DATA.bowl[i];return `${p.name}: ${p.rating.toFixed(2)} [${DATA.ci_bowl[i].lo.toFixed(2)}, ${DATA.ci_bowl[i].hi.toFixed(2)}]`}}}}}
   });
 
   // PI by over
@@ -838,7 +841,7 @@ function makeCharts() {
 
   // Bat scatter
   new Chart(document.getElementById('chart-bat-scatter'), {
-    type:'scatter', data:{datasets:[{data:DATA.bat.map(p=>({x:p.sr_normal,y:p.sr_pressure,name:p.name})),backgroundColor:accent+'CC',borderColor:accent,borderWidth:1.5,pointRadius:7,pointHoverRadius:10}]},
+    type:'scatter', data:{datasets:[{data:DATA.bat.map(p=>({x:p.sr_normal,y:p.sr_pressure,name:p.name})),backgroundColor:accent+'CC',borderColor:accent,borderWidth:1.5,pointRadius:5,pointHoverRadius:8}]},
     options:{responsive:true,maintainAspectRatio:false,...noLegend,
       scales:{x:{title:{display:true,text:'SR (Normal)',color:fg},grid:{color:grid},min:110,max:240},y:{title:{display:true,text:'SR (Pressure)',color:fg},grid:{color:grid},min:110,max:240}},
       plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>`${ctx.raw.name}: ${ctx.raw.y} (P) / ${ctx.raw.x} (N)`}}}},
@@ -847,7 +850,7 @@ function makeCharts() {
 
   // Bowl scatter
   new Chart(document.getElementById('chart-bowl-scatter'), {
-    type:'scatter', data:{datasets:[{data:DATA.bowl.map(p=>({x:p.econ_normal,y:p.econ_pressure,name:p.name})),backgroundColor:green+'CC',borderColor:green,borderWidth:1.5,pointRadius:7,pointHoverRadius:10}]},
+    type:'scatter', data:{datasets:[{data:DATA.bowl.map(p=>({x:p.econ_normal,y:p.econ_pressure,name:p.name})),backgroundColor:green+'CC',borderColor:green,borderWidth:1.5,pointRadius:5,pointHoverRadius:8}]},
     options:{responsive:true,maintainAspectRatio:false,...noLegend,
       scales:{x:{title:{display:true,text:'Econ (Normal)',color:fg},grid:{color:grid},min:6.5,max:10,reverse:true},y:{title:{display:true,text:'Econ (Pressure)',color:fg},grid:{color:grid},min:6.5,max:10,reverse:true}},
       plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>`${ctx.raw.name}: ${ctx.raw.y} (P) / ${ctx.raw.x} (N)`}}}},
